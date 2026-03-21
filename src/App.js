@@ -18,7 +18,8 @@ function App() {
 
           <NavBar />
           <header className="App-header">
-            <h1>Household Items</h1>
+            <h1 className='text-danger text-'>Warratek Household Items</h1>
+            <h3 className='text-success text-center'>This is where you get items with a very affordable prices</h3>
           </header>
 
           <Routes>

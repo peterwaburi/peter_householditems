@@ -35,7 +35,13 @@ const GetProducts = () => {
 
     return (
         <div className="row">
-            <h3>Available products</h3>
+            <section>
+
+                {/* <div class="text-warning p-1 text-center bg-danger my-1 b-danger">
+                    <marquee> Don`t forget to shop on Black Friday. Items are <b>40% 0ff</b></marquee>
+                </div> */}
+            </section>
+            <h3 className="text-success ">we have a variety of products you can choose from:</h3>
             <h5 className="text-warning">{loading}</h5>
             <h5 className="text-danger">{error}</h5>
 

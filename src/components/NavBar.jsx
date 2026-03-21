@@ -3,15 +3,15 @@ const NavBar = () => {
 
     const user = JSON.parse(localStorage.getItem("user"))
 
-    let navigator=useNavigate();
-    
+    let navigator = useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem("user")
         navigator("/signin")
     }
     return (
         <nav className="navbar navbar-expand-lg">
-            <Link className="navbar-brand" to='/'>Sokogarden</Link>
+            <Link className="navbar-brand" to='/'>Warratek</Link>
             <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -20,6 +20,14 @@ const NavBar = () => {
                 <div className="navbar-nav">
                     <Link className="nav-link" to='/'>Home</Link>
                     <Link className="nav-link" to='/addproducts'>Add Products</Link>
+                </div>
+
+                <div className="navbar-nav">
+                    <Link className="nav-link" to='/furniture'>Furniture</Link>
+                    <Link className="nav-link" to='/cutlery'>Cutlery</Link>
+                    <Link className="nav-link" to='/beddings'>Beddings</Link>
+                    <Link className="nav-link" to='/decorators'>Decorators</Link>
+                    <Link className="nav-link" to='/machines'>Machines</Link>
                 </div>
 
                 {user ? (

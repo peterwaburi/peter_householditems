@@ -96,10 +96,11 @@ const AddProducts = () => {
                     >
 
                         <option value="">Select Cartegory</option>
-                        <option value="television">tv</option>
-                        <option value="phones">phones</option>
-                        <option value="laptops">laptops</option>
-                        <option value="accessories">accessories</option>
+                        <option value="television">Furniture</option>
+                        <option value="phones">Cutlery</option>
+                        <option value="laptops">Beddings</option>
+                        <option value="accessories">Decorators</option>
+                        <option value="accessories">Home Machines</option>
                     </select>
                     <br />
 
