@@ -5,8 +5,10 @@ import NavBar from "./NavBar";
 
 const GetProducts = () => {
     let [products, setProducts] = useState([]);
-    let [loading, setLoading] = useState("")
-    let [error, setError] = useState("")
+    let [loading, setLoading] = useState("");
+    let [error, setError] = useState("");
+
+    // let [furniture, setFurniture] = useState([]);
 
     // base url for image location
     const img_url = "https://peter511.alwaysdata.net/static/images/"
@@ -26,6 +28,10 @@ const GetProducts = () => {
                 setLoading("")
                 setProducts(response.data)
             }
+
+            // let furniture_products =response.data.filter((products)=>products.product_cartegory==="furniture");
+            // setFurniture(furniture_products);
+
         } catch (error) {
             setLoading("")
             setError(error.message)
@@ -49,7 +55,24 @@ const GetProducts = () => {
 
             {/* map/ loop over the products to access one product at a time */}
 
-            {products.map((product) => (
+         {/* <h2 className="text-center my-2 p-4 bg-dark text-white">Furniture</h2>
+            {furniture.map((product) => (
+                <div className="col-md-3 justify-content-center mb-4">
+                    <div className="card shadow card-margin">
+                        <img src={img_url + product.product_image} alt="" className="product_img mt_4" />
+                        <div className="card-body">
+                            <h5 className="mt-2">{product.product_name}</h5>
+                            <p className="text-muted">{product.product_description}</p>
+                            <b className="text-warning">{product.product_cost}</b>
+                            <br />
+                            <button className="btn btn-dark" onClick={() => { navigator("/makepayment", { state: { product } }) }}>Purchase now</button>
+
+                        </div>
+                    </div>
+                </div>
+            ))} */}
+
+         {products.map((product) => (
                 <div className="col-md-3 justify-content-center mb-4">
                     <div className="card shadow card-margin">
                         <img src={img_url + product.product_image} alt="" className="product_img mt_4" />
@@ -64,8 +87,13 @@ const GetProducts = () => {
                     </div>
                 </div>
             ))}
+
         </div>
+
+       
+
     );
+    
 }
 
 export default GetProducts;

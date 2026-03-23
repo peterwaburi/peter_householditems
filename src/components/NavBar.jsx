@@ -21,7 +21,8 @@ const NavBar = () => {
                     <Link className="nav-link" to='/'>Home</Link>
                     {user !== null && user.role === "admin" ?(
                         <Link className="nav-link" to='/addproducts'>Add Products</Link>)
-                    :("")}   
+                    :("")} 
+                     <Link className="nav-link" to='/addproducts'>Add Products</Link>  
                 </div>
 
 
