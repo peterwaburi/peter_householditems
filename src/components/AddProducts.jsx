@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import NavBar from "./NavBar";
 
 const AddProducts = () => {
     let [product_name, setProductName] = useState("");
@@ -51,6 +52,7 @@ const AddProducts = () => {
 
     return (
         <div className="row justify-content-center mt-4">
+            <NavBar/>
             <div className="col-md-6 card shadow p-4">
                 <h2>Add Product</h2>
                 <h5 className="text-danger">{error}</h5>

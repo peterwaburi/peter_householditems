@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 const SignIn = () => {
     let [email, updateEmail] = useState("")
@@ -47,6 +48,7 @@ const SignIn = () => {
 
     return (
         <div className="row justify-content-center mt-4">
+             <NavBar />  
             <div className="col-md-6 card shadow p-4">
                 <h2>Sign In</h2>
                 <h5 className="text-warning">{loading}</h5>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import NavBar from "./NavBar";
 
 const Mpesa = () => {
     const { product } = useLocation().state || {}
@@ -42,6 +43,7 @@ const Mpesa = () => {
 
     return (
         <div className="row justify-content-center mt-4">
+               <NavBar />
             <h2>LIPA NA MPESA</h2>
 
             <div className="col-md-3">

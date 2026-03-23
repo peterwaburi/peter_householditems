@@ -19,21 +19,24 @@ const NavBar = () => {
             <div className="collapse navbar-collapse" id="navbarCollapse">
                 <div className="navbar-nav">
                     <Link className="nav-link" to='/'>Home</Link>
-                    <Link className="nav-link" to='/addproducts'>Add Products</Link>
+                    {user !== null && user.role === "admin" ?(
+                        <Link className="nav-link" to='/addproducts'>Add Products</Link>)
+                    :("")}   
                 </div>
 
+
                 <div className="navbar-nav">
-                    <Link className="nav-link" to='/furniture'>Furniture</Link>
+                    {/* <Link className="nav-link" to='/furniture'>Furniture</Link>
                     <Link className="nav-link" to='/cutlery'>Cutlery</Link>
                     <Link className="nav-link" to='/beddings'>Beddings</Link>
                     <Link className="nav-link" to='/decorators'>Decorators</Link>
-                    <Link className="nav-link" to='/machines'>Machines</Link>
+                    <Link className="nav-link" to='/machines'>Machines</Link> */}
                 </div>
 
                 {user ? (
 
                     <div className="navbar-nav ms-auto">
-                        <Link className="nav-link" to="#">{user.username}</Link>
+                        <Link className="nav-link" to="#">{user.user_name}</Link>
                         <button className="btn nav-link" onClick={handleLogout}>Log Out</button>
                     </div>
                 ) : (
