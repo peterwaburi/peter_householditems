@@ -50,6 +50,25 @@ const AddProducts = () => {
 
     }
 
+    // // DELETE FUNCTION
+    // const handleDelete = async (id, imageName) => {
+    //     const confirmDelete = window.confirm("Delete this product?");
+    //     if (!confirmDelete) return;
+
+    //     try {
+    //         await axios.post("https://peter511.alwaysdata.net/api/delete_product", {
+    //             id: id,
+    //             image: imageName
+    //         });
+
+    //         // remove from UI instantly
+    //         setProducts(products.filter(p => p.id !== id));
+
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // };
+
     return (
         <div className="row justify-content-center mt-4">
             <NavBar/>
@@ -98,7 +117,7 @@ const AddProducts = () => {
                     >
 
                         <option value="">Select Cartegory</option>
-                        <option value="television">Furniture</option>
+                        <option value="vehiclecleaning">cleaning</option>
                         <option value="phones">Cutlery</option>
                         <option value="laptops">Beddings</option>
                         <option value="accessories">Decorators</option>

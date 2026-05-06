@@ -45,3 +45,255 @@
     transform: rotate(360deg);
   }
 }
+
+/* app header */
+.App-header {
+  padding: 40px 20px;
+}
+
+/* Main logo */
+.logo-title {
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #0b1f2a;
+  /* deep navy */
+  text-transform: uppercase;
+}
+
+/* Highlight part (Carwash) */
+.highlight {
+  color: #2dd4bf;
+  /* aqua/bluewave color */
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.6);
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #16a34a;
+  /* clean green accent */
+  margin-top: 10px;
+}
+
+/* footer */
+.footer {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+  padding: 50px 0 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-title {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #00d4ff;
+}
+
+.footer p {
+  margin: 8px 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #00d4ff;
+  padding-left: 5px;
+}
+
+.social-icons a {
+  color: #fff;
+  font-size: 20px;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #00d4ff;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 30px;
+  padding-top: 15px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.custom-navbar {
+  background: rgba(11, 31, 42, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Brand navbar*/
+.brand {
+  font-weight: 800;
+  font-size: 24px;
+  color: #2dd4bf !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.brand-icon {
+  font-size: 28px;
+  color: #2dd4bf;
+  filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.7));
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  position: relative;
+  color: #f9fafb !important;
+  margin: 0 14px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Glow + text glow */
+.navbar-nav .nav-link:hover {
+  color: #2dd4bf !important;
+  text-shadow: 0 0 8px rgba(45, 212, 191, 0.9);
+}
+
+/* Underglow line */
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 3px;
+  background: #2dd4bf;
+  box-shadow: 0 0 12px #2dd4bf;
+  transition: width 0.35s ease;
+  border-radius: 20px;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Icons */
+.icon-link {
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.icon-link:hover {
+  transform: scale(1.2);
+  color: #2dd4bf !important;
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  background: #132f3a;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+}
+
+.dropdown-item {
+  color: #f9fafb;
+  font-weight: 600;
+}
+
+.dropdown-item:hover {
+  background: #2dd4bf;
+  color: #0b1f2a;
+}
+
+/* Rounded floating navbar container */
+.custom-navbar {
+  width: 95%;
+  margin: 15px auto;
+  /* centers and adds space from edges */
+  border-radius: 25px;
+  /* rounded edges */
+  padding: 12px 18px;
+
+  background: rgba(11, 31, 42, 0.92);
+  backdrop-filter: blur(10px);
+
+  /* floating effect */
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.25),
+    0 0 12px rgba(45, 212, 191, 0.15);
+
+  border: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+/* Ensure inner container doesn't stretch too wide */
+.custom-navbar .container {
+  max-width: 1200px;
+}
+
+/* Make it more pill-shaped on larger screens */
+@media (min-width: 992px) {
+  .custom-navbar {
+    width: 85%;
+    border-radius: 50px;
+    padding: 14px 25px;
+  }
+}
+
+/* carrousel */
+.carousel-img {
+  height: 500px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Caption styling */
+.carousel-caption h3 {
+  background: rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Indicators (dots) */
+.carousel-indicators [data-bs-target] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #2dd4bf;
+}
+
+/* Active indicator */
+.carousel-indicators .active {
+  background-color: #ffffff;
+}
+
+/* Arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(45, 212, 191, 0.7);
+  border-radius: 50%;
+  padding: 18px;
+}

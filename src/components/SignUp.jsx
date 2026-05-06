@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import NavBar from "./NavBar";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUp = () => {
     let [username, updateUsername] = useState("")
@@ -12,6 +12,8 @@ const SignUp = () => {
     let [loading, setLoading] = useState("")
     let [error, setError] = useState("")
     let [success, setSuccess] = useState("")
+    const [showPassword, setShowPassword] = useState(false);
+    const [passwordStrength, setPasswordStrength] = useState("");
 
     const handleSubmit = async (e) => {
         // prevent default behaviour
@@ -53,10 +55,27 @@ const SignUp = () => {
             updatePassword("")
         }
     }
+    const checkPasswordStrength = (password) => {
+        let score = 0;
+
+        if (password.length >= 8) score++;
+        if (/[A-Z]/.test(password)) score++;
+        if (/[a-z]/.test(password)) score++;
+        if (/[0-9]/.test(password)) score++;
+        if (/[@$!%*?&#]/.test(password)) score++;
+
+        if (score <= 2) {
+            setPasswordStrength("Weak");
+        } else if (score === 3 || score === 4) {
+            setPasswordStrength("Medium");
+        } else {
+            setPasswordStrength("Strong");
+        }
+    };
 
     return (
         <div className="row justify-content-center mt-4">
-               <NavBar />
+
             <div className="col-md-6 card shadow p-4">
                 <h2>Sign Up</h2>
                 <h5 className="text-warning">{loading}</h5>
@@ -90,14 +109,49 @@ const SignUp = () => {
                         onChange={(e) => { updatePhone(e.target.value) }}
                         value={phone} /><br />
 
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="enter your password"
-                        required
-                        onChange={(e) => { updatePassword(e.target.value) }}
-                        value={password} /><br />
+                    <div style={{ position: "constant" }}
+                        className="password-wrapper">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            placeholder="enter your password"
+                            required
+                            onChange={(e) => {
+                                updatePassword(e.target.value);
+                                checkPasswordStrength(e.target.value);
+                            }}
+                            value={password}
+                            style={{ paddingRight: "40px" }}
+                        />
+                        {password && (
+                            <small
+                                className={
+                                    passwordStrength === "Weak"
+                                        ? "text-danger"
+                                        : passwordStrength === "Medium"
+                                            ? "text-warning"
+                                            : "text-success"
+                                }
+                            >
+                                Password strength: {passwordStrength}
+                            </small>
+                        )}
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: "absolute",
+                                right: "10px",
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                cursor: "pointer",
+                                color: "#555"
+                            }}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
 
+                    </div>
+                    <br />
                     <button className="btn btn-dark">
                         Sign Up
                     </button><br />

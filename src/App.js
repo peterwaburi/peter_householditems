@@ -8,6 +8,7 @@ import GetProducts from './components/GetProducts';
 import Mpesa from './components/Mpesa';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.min.js'
+import BeautifulFooter from './components/footer';
 
 
 function App() {
@@ -16,9 +17,16 @@ function App() {
       <div className="container-fluid">
         <div className="App">
 
-          <header className="App-header">
-            <h1 className='text-danger text-'>Warratek Household Items</h1>
-            <h3 className='text-success text-center'>This is where you get items with a very affordable prices</h3>
+          <header className="App-header text-center">
+
+            <h1 className="logo-title">
+              Bluewave <span className="highlight">Carwash</span> & Autospa
+            </h1>
+
+            <h3 className="subtitle">
+              Premium care for your vehicle at affordable prices
+            </h3>
+
           </header>
 
           <Routes>

@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import BeautifulFooter from "./footer";
 
 const GetProducts = () => {
     let [products, setProducts] = useState([]);
     let [loading, setLoading] = useState("");
     let [error, setError] = useState("");
 
-    // let [furniture, setFurniture] = useState([]);
+
 
     // base url for image location
     const img_url = "https://peter511.alwaysdata.net/static/images/"
@@ -29,8 +30,6 @@ const GetProducts = () => {
                 setProducts(response.data)
             }
 
-            // let furniture_products =response.data.filter((products)=>products.product_cartegory==="furniture");
-            // setFurniture(furniture_products);
 
         } catch (error) {
             setLoading("")
@@ -39,15 +38,23 @@ const GetProducts = () => {
     };
 
     useEffect(() => { getProducts() }, [])
+    const groupedProducts = products.reduce((acc, product) => {
+        const category = product.product_cartegory || "Others";
+
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+
+        acc[category].push(product);
+        return acc;
+    }, {});
 
     return (
         <div className="row">
-               <NavBar/>
+            <NavBar />
+
             <section>
 
-                {/* <div class="text-warning p-1 text-center bg-danger my-1 b-danger">
-                    <marquee> Don`t forget to shop on Black Friday. Items are <b>40% 0ff</b></marquee>
-                </div> */}
             </section>
             <h3 className="text-success ">we have a variety of products you can choose from:</h3>
             <h5 className="text-warning">{loading}</h5>
@@ -55,45 +62,57 @@ const GetProducts = () => {
 
             {/* map/ loop over the products to access one product at a time */}
 
-         {/* <h2 className="text-center my-2 p-4 bg-dark text-white">Furniture</h2>
-            {furniture.map((product) => (
-                <div className="col-md-3 justify-content-center mb-4">
-                    <div className="card shadow card-margin">
-                        <img src={img_url + product.product_image} alt="" className="product_img mt_4" />
-                        <div className="card-body">
-                            <h5 className="mt-2">{product.product_name}</h5>
-                            <p className="text-muted">{product.product_description}</p>
-                            <b className="text-warning">{product.product_cost}</b>
-                            <br />
-                            <button className="btn btn-dark" onClick={() => { navigator("/makepayment", { state: { product } }) }}>Purchase now</button>
 
-                        </div>
+
+            {Object.keys(groupedProducts).map((category) => (
+                <div key={category} className="col-12">
+
+                    {/* Category title */}
+                    <h3 className="bg-dark text-white p-2 mt-4">
+                        {category}
+                    </h3>
+
+                    <div className="row">
+                        {groupedProducts[category].map((product) => (
+                            <div key={product.id} className="col-md-3 mb-4">
+                                <div className="card shadow card-margin">
+                                    <img
+                                        src={img_url + product.product_image}
+                                        alt=""
+                                        className="product_img mt_4"
+                                    />
+                                    <div className="card-body">
+                                        <h5>{product.product_name}</h5>
+                                        <p className="text-muted">{product.product_description}</p>
+                                        <b className="text-warning">{product.product_cost}</b>
+                                        <br />
+                                        <button
+                                            className="btn btn-dark"
+                                            onClick={() =>
+                                                navigator("/mpesa", { state: { product } })
+                                            }
+                                        >
+                                            Purchase now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                </div>
-            ))} */}
 
-         {products.map((product) => (
-                <div className="col-md-3 justify-content-center mb-4">
-                    <div className="card shadow card-margin">
-                        <img src={img_url + product.product_image} alt="" className="product_img mt_4" />
-                        <div className="card-body">
-                            <h5 className="mt-2">{product.product_name}</h5>
-                            <p className="text-muted">{product.product_description}</p>
-                            <b className="text-warning">{product.product_cost}</b>
-                            <br />
-                            <button className="btn btn-dark" onClick={() => { navigator("/makepayment", { state: { product } }) }}>Purchase now</button>
-
-                        </div>
-                    </div>
                 </div>
             ))}
+            <BeautifulFooter />
+
 
         </div>
 
-       
+
 
     );
-    
+
 }
 
 export default GetProducts;
+
+
