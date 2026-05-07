@@ -1,43 +1,46 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import NavBar from "./NavBar";
 import BeautifulFooter from "./footer";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 const GetProducts = () => {
+
     let [products, setProducts] = useState([]);
     let [loading, setLoading] = useState("");
     let [error, setError] = useState("");
 
-
-
-    // base url for image location
-    const img_url = "https://peter511.alwaysdata.net/static/images/"
+    const img_url = "https://peter511.alwaysdata.net/static/images/";
 
     let navigator = useNavigate();
 
-
     const getProducts = async () => {
-        setError("")
-        setLoading("Fetching products please wait")
+
+        setError("");
+        setLoading("Fetching products please wait...");
 
         try {
-            const response = await axios.get("https://peter511.alwaysdata.net/api/get_products")
-            console.log(response);
+            const response = await axios.get(
+                "https://peter511.alwaysdata.net/api/get_products"
+            );
 
             if (response.status === 200) {
-                setLoading("")
-                setProducts(response.data)
+                setProducts(response.data);
+                setLoading("");
             }
 
-
         } catch (error) {
-            setLoading("")
-            setError(error.message)
+            setLoading("");
+            setError(error.message);
         }
     };
 
-    useEffect(() => { getProducts() }, [])
+    useEffect(() => {
+        getProducts();
+    }, []);
+
+    // Group by category
     const groupedProducts = products.reduce((acc, product) => {
         const category = product.product_cartegory || "Others";
 
@@ -50,69 +53,100 @@ const GetProducts = () => {
     }, {});
 
     return (
-        <div className="row">
+        <div>
+
             <NavBar />
 
-            <section>
+            <Container className="mt-4">
 
-            </section>
-            <h3 className="text-success ">we have a variety of products you can choose from:</h3>
-            <h5 className="text-warning">{loading}</h5>
-            <h5 className="text-danger">{error}</h5>
+                <h3 className="text-center text-success mb-3">
+                    Choose from our premium products
+                </h3>
 
-            {/* map/ loop over the products to access one product at a time */}
+                <h5 className="text-warning text-center">{loading}</h5>
+                <h5 className="text-danger text-center">{error}</h5>
 
+                {/* ================= CATEGORY LOOP ================= */}
+                {Object.keys(groupedProducts).map((category) => (
 
+                    <div key={category} className="mb-5">
 
-            {Object.keys(groupedProducts).map((category) => (
-                <div key={category} className="col-12">
+                        {/* CATEGORY TITLE */}
+                        <h3 className="bg-dark text-white p-2 text-center rounded">
+                            {category}
+                        </h3>
 
-                    {/* Category title */}
-                    <h3 className="bg-dark text-white p-2 mt-4">
-                        {category}
-                    </h3>
+                        <Row className="mt-3">
 
-                    <div className="row">
-                        {groupedProducts[category].map((product) => (
-                            <div key={product.id} className="col-md-3 mb-4">
-                                <div className="card shadow card-margin">
-                                    <img
-                                        src={img_url + product.product_image}
-                                        alt=""
-                                        className="product_img mt_4"
-                                    />
-                                    <div className="card-body">
-                                        <h5>{product.product_name}</h5>
-                                        <p className="text-muted">{product.product_description}</p>
-                                        <b className="text-warning">{product.product_cost}</b>
-                                        <br />
-                                        <button
-                                            className="btn btn-dark"
-                                            onClick={() =>
-                                                navigator("/mpesa", { state: { product } })
-                                            }
-                                        >
-                                            Purchase now
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                            {groupedProducts[category].map((product, index) => (
+
+                                <Col md={3} sm={6} xs={12} key={product.id} className="mb-4">
+
+                                    <Card className="shadow product-card h-100">
+
+                                        {/* FIRST IMAGE = LINK */}
+                                        {index === 0 ? (
+                                            <Link
+                                                to="/getproducts"
+                                                style={{ textDecoration: "none" }}
+                                            >
+                                                <Card.Img
+                                                    variant="top"
+                                                    src={img_url + product.product_image}
+                                                    style={{ height: "200px", objectFit: "cover" }}
+                                                />
+                                            </Link>
+                                        ) : (
+                                            <Card.Img
+                                                variant="top"
+                                                src={img_url + product.product_image}
+                                                style={{ height: "200px", objectFit: "cover" }}
+                                            />
+                                        )}
+
+                                        <Card.Body>
+
+                                            <h5>{product.product_name}</h5>
+
+                                            <p className="text-muted">
+                                                {product.product_description}
+                                            </p>
+
+                                            <b className="text-warning">
+                                                Ksh {product.product_cost}
+                                            </b>
+
+                                            <br /><br />
+
+                                            <button
+                                                className="btn btn-dark w-100"
+                                                onClick={() =>
+                                                    navigator("/mpesa", { state: { product } })
+                                                }
+                                            >
+                                                Purchase Now
+                                            </button>
+
+                                        </Card.Body>
+
+                                    </Card>
+
+                                </Col>
+
+                            ))}
+
+                        </Row>
+
                     </div>
 
-                </div>
-            ))}
+                ))}
+
+            </Container>
+
             <BeautifulFooter />
 
-
         </div>
-
-
-
     );
-
-}
+};
 
 export default GetProducts;
-
-

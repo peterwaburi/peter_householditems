@@ -9,6 +9,7 @@ import Mpesa from './components/Mpesa';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.min.js'
 import BeautifulFooter from './components/footer';
+import TopBar from './components/hello';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
             <h3 className="subtitle">
               Premium care for your vehicle at affordable prices
             </h3>
-
+            <TopBar />
           </header>
 
           <Routes>
@@ -35,6 +36,8 @@ function App() {
             <Route path='/addproducts' element={<AddProducts />} />
             <Route path='/' element={<GetProducts />} />
             <Route path='/mpesa' element={<Mpesa />} />
+            <Route path='/about' element={<AboutUs />} />
+
           </Routes>
         </div>
       </div>

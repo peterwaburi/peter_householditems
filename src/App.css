@@ -13,23 +13,206 @@
   }
 }
 
+/* =========================
+   HEADER CONTAINER (NO BACKGROUND)
+========================= */
 .App-header {
-  background-image: url("/home/user/Downloads/images/m5.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  padding: 40px 20px;
+  min-height: 35vh;
 
-  height: auto;
-  max-width: 100%;
-  min-height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* font-size: calc(10px + 2vmin); */
-  color: white;
 
-  text-decoration: underline coral;
+  text-align: center;
+
+  color: #f9fafb;
+
+  border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+}
+
+/* =========================
+   LOGO TITLE
+========================= */
+.logo-title {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  color: #0b1f2a;
+  /* deep navy for clean look */
+
+  margin-bottom: 10px;
+
+  text-transform: uppercase;
+}
+
+/* Highlighted word */
+.highlight {
+  color: #2dd4bf;
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.4);
+}
+
+/* =========================
+   SUBTITLE
+========================= */
+.subtitle {
+  font-size: 18px;
+  font-weight: 500;
+
+  color: #374151;
+  /* soft dark gray */
+
+  max-width: 600px;
+  margin-bottom: 25px;
+}
+
+/* =========================
+   TOPBAR SPACING
+========================= */
+.App-header .topbar {
+  margin-top: 20px;
+}
+
+
+
+
+
+
+
+/* =========================
+   TOPBAR CONTAINER
+========================= */
+.topbar {
+  width: 95%;
+  margin: 12px auto;
+  padding: 14px 20px;
+
+  background: rgba(11, 31, 42, 0.95);
+  backdrop-filter: blur(10px);
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(45, 212, 191, 0.15);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.25),
+    0 0 10px rgba(45, 212, 191, 0.08);
+}
+
+/* =========================
+   LEFT SIDE TEXT
+========================= */
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-name {
+  color: #2dd4bf;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
+  text-shadow: 0 0 8px rgba(45, 212, 191, 0.5);
+}
+
+.welcome-text,
+.guest-text {
+  color: #f9fafb;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.auth-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.login-btn,
+.signup-btn,
+.logout-btn {
+  border: none !important;
+  padding: 8px 18px !important;
+  border-radius: 30px !important;
+
+  font-size: 14px !important;
+  font-weight: 700 !important;
+
+  transition: all 0.3s ease !important;
+}
+
+/* Login */
+.login-btn {
+  background: transparent !important;
+  border: 1px solid #2dd4bf !important;
+  color: #2dd4bf !important;
+}
+
+.login-btn:hover {
+  background: #2dd4bf !important;
+  color: #0b1f2a !important;
+
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.5);
+}
+
+/* Signup */
+.signup-btn {
+  background: #2dd4bf !important;
+  color: #0b1f2a !important;
+}
+
+.signup-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 0 15px rgba(45, 212, 191, 0.6);
+}
+
+/* Logout */
+.logout-btn {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+.logout-btn:hover {
+  background: #dc2626 !important;
+
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+
+  .topbar {
+    width: 98%;
+    padding: 14px;
+  }
+
+  .welcome-section {
+    margin-bottom: 10px;
+  }
+
+  .topbar .container {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+  .auth-buttons {
+    width: 100%;
+  }
+
+  .login-btn,
+  .signup-btn,
+  .logout-btn {
+    width: 100%;
+  }
 }
 
 .App-link {
@@ -296,4 +479,82 @@
   background-color: rgba(45, 212, 191, 0.7);
   border-radius: 50%;
   padding: 18px;
+}
+
+
+
+/* get proucts */
+.product-card {
+  border: none;
+  transition: 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  font-weight: 800;
+}
+
+
+/* about us */
+/* HERO */
+.about-hero {
+  padding: 60px 20px;
+  background: linear-gradient(to right, #0b1f2a, #132f3a);
+  color: #f9fafb;
+}
+
+.about-title {
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.highlight {
+  color: #2dd4bf;
+}
+
+.about-subtitle {
+  font-size: 18px;
+  color: #cbd5e1;
+}
+
+/* SECTIONS */
+.section-title {
+  font-weight: 800;
+  color: #0b1f2a;
+  margin-bottom: 10px;
+}
+
+.section-text {
+  color: #374151;
+  font-size: 16px;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* CARDS */
+.about-card {
+  border: none;
+  padding: 15px;
+  transition: 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* CTA */
+.cta-section {
+  padding: 60px 20px;
+  background: #f1f5f9;
+}
+
+.cta-btn {
+  margin-top: 15px;
+  padding: 10px 25px;
+  font-weight: 700;
 }
