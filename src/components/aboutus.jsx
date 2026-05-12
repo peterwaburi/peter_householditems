@@ -1,134 +1,122 @@
+import React from "react";
 import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
-import { Container, Row, Col, Card } from "react-bootstrap";
 
 const AboutUs = () => {
     return (
         <div>
-
-            {/* NAVBAR */}
             <NavBar />
 
-            {/* ================= HERO SECTION ================= */}
-            <div className="about-hero text-center">
+            <div className="container py-5">
 
-                <h1 className="about-title">
-                    About <span className="highlight">Blue Wave</span>
-                </h1>
+                {/* TITLE */}
+                <div className="text-center mb-5">
+                    <h1 className="fw-bold text-primary">
+                        About Blue Wave Car Wash & Auto Spa
+                    </h1>
+                    <p className="text-muted fs-5 mt-3">
+                        Premium care, detailing, and transformation for your vehicle
+                    </p>
+                </div>
 
-                <p className="about-subtitle">
-                    Premium Car Wash & Autospa Services You Can Trust
-                </p>
+                {/* INTRO TEXT */}
+                <div className="card shadow border-0 mb-4">
+                    <div className="card-body">
 
-            </div>
+                        <p className="fs-5">
+                            At <strong>Blue Wave Car Wash & Auto Spa</strong>, we believe that every vehicle deserves
+                            more than just a wash — it deserves a transformation. We are dedicated to restoring
+                            brilliance, comfort, and pride to every car that enters our care.
+                        </p>
 
-            {/* ================= WHO WE ARE ================= */}
-            <Container className="mt-5">
+                        <p className="fs-5">
+                            From the moment your vehicle arrives, it is treated with precision, passion, and
+                            professional attention that goes beyond ordinary cleaning. Every service is designed
+                            to deliver excellence through visible results.
+                        </p>
 
-                <h2 className="section-title text-center">Who We Are</h2>
+                    </div>
+                </div>
 
-                <p className="text-center section-text">
-                    Blue Wave Car Wash & Autospa is a modern vehicle care service provider
-                    dedicated to delivering high-quality cleaning, detailing, and maintenance
-                    services. We combine professionalism, modern equipment, and affordability
-                    to ensure your vehicle always looks its best.
-                </p>
+                {/* SECTION 1 */}
+                <div className="row align-items-center mb-5">
 
-            </Container>
+                    <div className="col-md-6 mb-3">
+                        <img
+                            src="https://via.placeholder.com/400x300?text=Exterior+Detailing"
+                            alt="Exterior Detailing"
+                            className="img-fluid rounded shadow"
+                        />
+                    </div>
 
-            {/* ================= MISSION ================= */}
-            <Container className="mt-5">
+                    <div className="col-md-6">
+                        <h3 className="text-success">Exterior Excellence</h3>
+                        <p className="fs-5 text-muted">
+                            We specialize in advanced exterior washing techniques that remove dirt,
+                            grime, and road residue while protecting your paint and restoring shine.
+                            Our professional team uses premium products and state-of-the-art equipment
+                            to ensure your vehicle looks its absolute best.
+                        </p>
+                    </div>
 
-                <h2 className="section-title text-center">Our Mission</h2>
+                </div>
 
-                <p className="text-center section-text">
-                    To provide reliable, affordable, and premium vehicle and household cleaning
-                    services while ensuring customer satisfaction through quality and trust.
-                </p>
+                {/* SECTION 2 */}
+                <div className="row align-items-center mb-5">
 
-            </Container>
+                    <div className="col-md-6 mb-3">
+                        <img
+                            src="https://via.placeholder.com/400x300?text=Interior+Cleaning"
+                            alt="Interior Cleaning"
+                            className="img-fluid rounded shadow"
+                        />
+                    </div>
 
-            {/* ================= SERVICES ================= */}
-            <Container className="mt-5">
+                    <div className="col-md-6">
+                        <h3 className="text-info">Interior Care & Comfort</h3>
+                        <p className="fs-5 text-muted">
+                            Our deep interior cleaning restores freshness to seats, carpets, dashboards,
+                            and every corner of your vehicle for a comfortable driving experience. We use
+                            specialized cleaning agents that eliminate odors and protect your interior surfaces.
+                        </p>
+                    </div>
 
-                <h2 className="section-title text-center">What We Do</h2>
+                </div>
 
-                <Row className="mt-4">
+                {/* SECTION 3 */}
+                <div className="row align-items-center mb-5">
 
-                    <Col md={4}>
-                        <Card className="about-card shadow text-center">
-                            <Card.Body>
-                                <h4>🚗 Vehicle Cleaning</h4>
-                                <p>Exterior wash, interior detailing, polishing, and deep cleaning.</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    <div className="col-md-6 mb-3">
+                        <img
+                            src="https://via.placeholder.com/400x300?text=Premium+Polishing"
+                            alt="Premium Polishing"
+                            className="img-fluid rounded shadow"
+                        />
+                    </div>
 
-                    <Col md={4}>
-                        <Card className="about-card shadow text-center">
-                            <Card.Body>
-                                <h4>🔧 Repair & Servicing</h4>
-                                <p>Engine diagnostics, oil changes, brake service, and full maintenance.</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    <div className="col-md-6">
+                        <h3 className="text-warning">Premium Finish & Protection</h3>
+                        <p className="fs-5 text-muted">
+                            Through advanced waxing and polishing, we enhance your vehicle's appearance,
+                            ensuring long-lasting protection and a showroom-quality finish.
+                        </p>
+                    </div>
 
-                    <Col md={4}>
-                        <Card className="about-card shadow text-center">
-                            <Card.Body>
-                                <h4>🏠 Household Cleaning</h4>
-                                <p>Sofa cleaning, carpet washing, and appliance deep cleaning services.</p>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                </div>
 
-                </Row>
+                {/* FINAL STATEMENT */}
+                <div className="text-center mt-5">
+                    <div className="card border-0 shadow-sm bg-light">
+                        <div className="card-body p-4">
+                            <p className="fs-5">
+                                At Blue Wave Car Wash & Auto Spa, we don't just wash cars — we restore confidence,
+                                elevate appearance, and redefine automotive care. Every service is performed with
+                                meticulous attention to detail and a commitment to excellence.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-            </Container>
-
-            {/* ================= WHY CHOOSE US ================= */}
-            <Container className="mt-5">
-
-                <h2 className="section-title text-center">Why Choose Us</h2>
-
-                <Row className="mt-4 text-center">
-
-                    <Col md={3}>
-                        <h5>✔ Experienced Staff</h5>
-                    </Col>
-
-                    <Col md={3}>
-                        <h5>✔ Affordable Pricing</h5>
-                    </Col>
-
-                    <Col md={3}>
-                        <h5>✔ Modern Equipment</h5>
-                    </Col>
-
-                    <Col md={3}>
-                        <h5>✔ Fast Service</h5>
-                    </Col>
-
-                </Row>
-
-            </Container>
-
-            {/* ================= CALL TO ACTION ================= */}
-            <div className="cta-section text-center mt-5">
-
-                <h2>Ready to give your vehicle premium care?</h2>
-
-                <p>Visit us today or book a service online.</p>
-
-                <button className="btn btn-dark cta-btn">
-                    Contact Us
-                </button>
-
-            </div>
-
-            {/* FOOTER */}
-            <BeautifulFooter />
-
+            </div> {/* container closes here */}
         </div>
     );
 };

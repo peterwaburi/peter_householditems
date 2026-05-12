@@ -7,11 +7,27 @@ const AddProducts = () => {
     let [product_description, setProductDescription] = useState("");
     let [product_cost, setProductCost] = useState("");
     let [product_cartegory, setProductCartegory] = useState("");
+    let [product_subcategory, setProductSubcategory] = useState("");
     let [product_image, setProductImage] = useState("");
 
     let [loading, setLoading] = useState("");
     let [error, setError] = useState("");
     let [success, setSuccess] = useState("");
+
+    const subcategoryOptions = {
+        Product: [
+            { value: "car-care-detailing", label: "Car Care and Detailing" },
+            { value: "air-fresheners-fragrance", label: "Air Fresheners and Fragrance" },
+            { value: "safety-emergency", label: "Safety and Emergency" },
+        ],
+        Service: [
+            { value: "car-wash-service", label: "Car Wash Service" },
+            { value: "auto-detailing-service", label: "Auto Detailing Service" },
+            { value: "mechanical-garage-service", label: "Mechanical and Garage Service" },
+            { value: "tire-wheel-services", label: "Tire and Wheel Services" },
+            { value: "electric-services", label: "Electric Services" },
+        ],
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,6 +43,7 @@ const AddProducts = () => {
             data.append("product_description", product_description);
             data.append("product_cost", product_cost);
             data.append("product_cartegory", product_cartegory);
+            data.append("product_subcategory", product_subcategory);
             data.append("product_image", product_image);
 
             const response = await axios.post("https://peter511.alwaysdata.net/api/add_product", data);
@@ -40,6 +57,7 @@ const AddProducts = () => {
                 setProductDescription("");
                 setProductCost("");
                 setProductCartegory("");
+                setProductSubcategory("");
                 setProductImage("");
             }
 
@@ -50,24 +68,6 @@ const AddProducts = () => {
 
     }
 
-    // // DELETE FUNCTION
-    // const handleDelete = async (id, imageName) => {
-    //     const confirmDelete = window.confirm("Delete this product?");
-    //     if (!confirmDelete) return;
-
-    //     try {
-    //         await axios.post("https://peter511.alwaysdata.net/api/delete_product", {
-    //             id: id,
-    //             image: imageName
-    //         });
-
-    //         // remove from UI instantly
-    //         setProducts(products.filter(p => p.id !== id));
-
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
 
     return (
         <div className="row justify-content-center mt-4">
@@ -90,7 +90,7 @@ const AddProducts = () => {
                     <textarea
                         className="form-control"
                         placeholder="product description"
-                        rows="7"
+                        rows="4"
                         required
                         onChange={(e) => { setProductDescription(e.target.value) }}
                         value={product_description}
@@ -107,24 +107,43 @@ const AddProducts = () => {
                     />
                     <br />
 
-
                     <label htmlFor="" className="form-label">
-                        Product Cartegory
+                        Category
                     </label>
                     <select className="form-select"
                         required
-                        onChange={(e) => { setProductCartegory(e.target.value) }}
+                        value={product_cartegory}
+                        onChange={(e) => {
+                            setProductCartegory(e.target.value);
+                            setProductSubcategory("");
+                        }}
                     >
-
-                        <option value="">Select Cartegory</option>
-                        <option value="vehiclecleaning">cleaning</option>
-                        <option value="phones">Cutlery</option>
-                        <option value="laptops">Beddings</option>
-                        <option value="accessories">Decorators</option>
-                        <option value="accessories">Home Machines</option>
+                        <option value="">Select Category</option>
+                        <option value="Product">Product</option>
+                        <option value="Service">Service</option>
                     </select>
                     <br />
 
+                    {product_cartegory && (
+                        <>
+                            <label htmlFor="" className="form-label">
+                                Subcategory
+                            </label>
+                            <select className="form-select"
+                                required
+                                value={product_subcategory}
+                                onChange={(e) => { setProductSubcategory(e.target.value) }}
+                            >
+                                <option value="">Select Subcategory</option>
+                                {subcategoryOptions[product_cartegory].map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                            <br />
+                        </>
+                    )}
 
                     <label htmlFor="" className="form-label">
                         product image
