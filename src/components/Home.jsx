@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 const Home = () => {
     const navigate = useNavigate();
-    
+
     return (
         <div>
             <NavBar />
@@ -93,7 +93,7 @@ const Home = () => {
                                         <div className="col-md-4 mb-3">
                                             <div className="card h-100">
                                                 <img
-                                                    src="https://via.placeholder.com/300x200?text=Car+Wash+1"
+                                                    src="/immages/washerfluid.jpg"
                                                     className="card-img-top"
                                                     alt="Exterior Wash"
                                                 />
@@ -109,7 +109,7 @@ const Home = () => {
                                         <div className="col-md-4 mb-3">
                                             <div className="card h-100">
                                                 <img
-                                                    src="https://via.placeholder.com/300x200?text=Car+Wash+2"
+                                                    src="/immages/soundinstallation.avif"
                                                     className="card-img-top"
                                                     alt="Interior Detailing"
                                                 />
@@ -125,7 +125,7 @@ const Home = () => {
                                         <div className="col-md-4 mb-3">
                                             <div className="card h-100">
                                                 <img
-                                                    src="https://via.placeholder.com/300x200?text=Car+Wash+3"
+                                                    src="/immages/paintsealant.jpg"
                                                     className="card-img-top"
                                                     alt="Premium Wax"
                                                 />
