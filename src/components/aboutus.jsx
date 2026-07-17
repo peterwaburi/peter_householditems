@@ -42,7 +42,7 @@ const AboutUs = () => {
 
                     <div className="col-md-6 mb-3">
                         <img
-                            src="https://via.placeholder.com/400x300?text=Exterior+Detailing"
+                            src="/immages/lightservice.avif"
                             alt="Exterior Detailing"
                             className="img-fluid rounded shadow"
                         />
@@ -65,7 +65,7 @@ const AboutUs = () => {
 
                     <div className="col-md-6 mb-3">
                         <img
-                            src="https://via.placeholder.com/400x300?text=Interior+Cleaning"
+                            src="/immages/interior.webp"
                             alt="Interior Cleaning"
                             className="img-fluid rounded shadow"
                         />
@@ -87,7 +87,7 @@ const AboutUs = () => {
 
                     <div className="col-md-6 mb-3">
                         <img
-                            src="https://via.placeholder.com/400x300?text=Premium+Polishing"
+                            src="/immages/paintsealant.jpg"
                             alt="Premium Polishing"
                             className="img-fluid rounded shadow"
                         />
