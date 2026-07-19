@@ -14,13 +14,19 @@ const Cart = () => {
 
     useEffect(() => {
         const loadCart = () => {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                const cartItems = JSON.parse(savedCart);
-                // Add quantity property to each item if not present
-                const cartWithQuantity = cartItems.map(item => Object.assign({}, item, { quantity: item.quantity || 1 }));
-                setCart(cartWithQuantity);
-                calculateGrandTotal(cartWithQuantity);
+            try {
+                const savedCart = localStorage.getItem('cart');
+                if (savedCart) {
+                    const cartItems = JSON.parse(savedCart);
+                    // Add quantity property to each item if not present
+                    const cartWithQuantity = cartItems.map(item => Object.assign({}, item, { quantity: item.quantity || 1 }));
+                    setCart(cartWithQuantity);
+                    calculateGrandTotal(cartWithQuantity);
+                }
+            } catch (error) {
+                console.error("Failed to load cart from storage:", error);
+                setCart([]);
+                setGrandTotal(0);
             }
         };
 

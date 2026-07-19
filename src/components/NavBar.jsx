@@ -9,13 +9,18 @@ export default function AutoGlowNavbar() {
 
     useEffect(() => {
         const updateCartCount = () => {
-            const cart = localStorage.getItem('cart');
-            if (cart) {
-                const cartItems = JSON.parse(cart);
-                // Calculate total quantity of all items
-                const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                setCartCount(totalQuantity);
-            } else {
+            try {
+                const cart = localStorage.getItem('cart');
+                if (cart) {
+                    const cartItems = JSON.parse(cart);
+                    // Calculate total quantity of all items
+                    const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+                    setCartCount(totalQuantity);
+                } else {
+                    setCartCount(0);
+                }
+            } catch (error) {
+                console.error("Failed to read cart from storage:", error);
                 setCartCount(0);
             }
         };
