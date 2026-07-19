@@ -1,8 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 
 const AddProducts = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!localStorage.getItem("user")) {
+            navigate("/signin");
+        }
+    }, [navigate]);
+
     let [product_name, setProductName] = useState("");
     let [product_description, setProductDescription] = useState("");
     let [product_cost, setProductCost] = useState("");
@@ -47,7 +56,6 @@ const AddProducts = () => {
             data.append("product_image", product_image);
 
             const response = await axios.post("https://peter511.alwaysdata.net/api/add_product", data);
-            console.log(response)
 
             if (response.status === 200) {
                 setLoading("");

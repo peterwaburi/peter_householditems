@@ -6,7 +6,6 @@ import NavBar from "./NavBar";
 const Mpesa = () => {
     const location = useLocation();
     const { product, cart, grandTotal } = location.state || {};
-    console.log(location.state)
     const img_url = "https://peter511.alwaysdata.net/static/images/";
 
     // Determine if this is cart checkout or single product purchase
@@ -36,7 +35,6 @@ const Mpesa = () => {
             data.append("phone", phone)
 
             const response = await axios.post("https://peter511.alwaysdata.net/api/mpesa_payment", data)
-            console.log(response)
 
             if (response.status === 200) {
                 setLoading("")
