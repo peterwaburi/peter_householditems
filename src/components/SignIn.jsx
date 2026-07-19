@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import NavBar from "./NavBar";
+import StatusMessages from "./StatusMessages";
+import { API_ENDPOINTS } from "../config";
+import { postFormData } from "../utils/api";
 
 const SignIn = () => {
 
@@ -25,14 +27,10 @@ const SignIn = () => {
 
         try {
 
-            const user_data = new FormData();
-            user_data.append("email", email);
-            user_data.append("password", password);
-
-            const response = await axios.post(
-                "https://peter511.alwaysdata.net/api/signin",
-                user_data
-            );
+            const response = await postFormData(API_ENDPOINTS.signin, {
+                email,
+                password,
+            });
 
             console.log(response);
 
@@ -70,9 +68,7 @@ const SignIn = () => {
 
                 <h2>Sign In</h2>
 
-                <h5 className="text-warning">{loading}</h5>
-                <h5 className="text-danger">{error}</h5>
-                <h5 className="text-success">{success}</h5>
+                <StatusMessages loading={loading} error={error} success={success} />
 
                 <form onSubmit={handleSubmit}>
 

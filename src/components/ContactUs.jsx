@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import BeautifulFooter from "./footer";
+import { API_ENDPOINTS } from "../config";
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const ContactUs = () => {
         setSuccess("");
 
         try {
-            const response = await fetch("https://peter511.alwaysdata.net/api/contact", {
+            const response = await fetch(API_ENDPOINTS.contact, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

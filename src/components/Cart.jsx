@@ -4,24 +4,30 @@ import { FaShoppingCart, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import BeautifulFooter from "./footer";
+import { IMAGE_BASE_URL } from "../config";
+import {
+    CART_UPDATED_EVENT,
+    getCart,
+    saveCart,
+    clearCart as clearStoredCart,
+    calculateCartTotal,
+} from "../utils/cart";
+import { formatKsh } from "../utils/format";
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
     const [grandTotal, setGrandTotal] = useState(0);
     const navigate = useNavigate();
 
-    const img_url = "https://peter511.alwaysdata.net/static/images/";
+    const img_url = IMAGE_BASE_URL;
 
     useEffect(() => {
         const loadCart = () => {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                const cartItems = JSON.parse(savedCart);
-                // Add quantity property to each item if not present
-                const cartWithQuantity = cartItems.map(item => Object.assign({}, item, { quantity: item.quantity || 1 }));
-                setCart(cartWithQuantity);
-                calculateGrandTotal(cartWithQuantity);
-            }
+            const cartItems = getCart();
+            // Add quantity property to each item if not present
+            const cartWithQuantity = cartItems.map(item => Object.assign({}, item, { quantity: item.quantity || 1 }));
+            setCart(cartWithQuantity);
+            setGrandTotal(calculateCartTotal(cartWithQuantity));
         };
 
         loadCart();
@@ -30,21 +36,12 @@ const Cart = () => {
             loadCart();
         };
         
-        window.addEventListener('cartUpdated', handleCartUpdate);
+        window.addEventListener(CART_UPDATED_EVENT, handleCartUpdate);
         
         return () => {
-            window.removeEventListener('cartUpdated', handleCartUpdate);
+            window.removeEventListener(CART_UPDATED_EVENT, handleCartUpdate);
         };
     }, []);
-
-    const calculateGrandTotal = (items) => {
-        const total = items.reduce((sum, item) => {
-            const price = parseFloat(item.product_cost || 0);
-            const quantity = parseInt(item.quantity || 1);
-            return sum + (price * quantity);
-        }, 0);
-        setGrandTotal(total);
-    };
 
     const updateQuantity = (index, newQuantity) => {
         if (newQuantity < 1) return;
@@ -52,17 +49,15 @@ const Cart = () => {
         const newCart = [...cart];
         newCart[index].quantity = newQuantity;
         setCart(newCart);
-        localStorage.setItem('cart', JSON.stringify(newCart));
-        calculateGrandTotal(newCart);
-        window.dispatchEvent(new Event('cartUpdated'));
+        setGrandTotal(calculateCartTotal(newCart));
+        saveCart(newCart);
     };
 
     const removeFromCart = (index) => {
         const newCart = cart.filter((_, i) => i !== index);
         setCart(newCart);
-        localStorage.setItem('cart', JSON.stringify(newCart));
-        calculateGrandTotal(newCart);
-        window.dispatchEvent(new Event('cartUpdated'));
+        setGrandTotal(calculateCartTotal(newCart));
+        saveCart(newCart);
     };
 
     const handleProceedToCheckout = () => {
@@ -71,9 +66,8 @@ const Cart = () => {
     };
     const clearCart = () => {
         setCart([]);
-        localStorage.removeItem('cart');
         setGrandTotal(0);
-        window.dispatchEvent(new Event('cartUpdated'));
+        clearStoredCart();
     };
     if (cart.length === 0) {
         return (
@@ -136,7 +130,7 @@ const Cart = () => {
                                         </td>
                                         <td className="align-middle">
                                             <span className="text-warning fw-bold">
-                                                Ksh {parseFloat(item.product_cost || 0).toFixed(2)}
+                                                {formatKsh(item.product_cost)}
                                             </span>
                                         </td>
                                         <td className="align-middle">
@@ -163,7 +157,7 @@ const Cart = () => {
                                         </td>
                                         <td className="align-middle">
                                             <span className="text-success fw-bold">
-                                                Ksh {(parseFloat(item.product_cost || 0) * (item.quantity || 1)).toFixed(2)}
+                                                {formatKsh(parseFloat(item.product_cost || 0) * (item.quantity || 1))}
                                             </span>
                                         </td>
                                         <td className="align-middle">
@@ -198,7 +192,7 @@ const Cart = () => {
                             <Card.Body>
                                 <h4 className="mb-3">Grand Total</h4>
                                 <h2 className="text-success">
-                                    Ksh {grandTotal.toFixed(2)}
+                                    {formatKsh(grandTotal)}
                                 </h2>
                                 <Button
                                     variant="success"

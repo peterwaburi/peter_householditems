@@ -2,6 +2,7 @@ import { Navbar, Nav, Container, NavDropdown, Badge } from "react-bootstrap";
 import { FaShoppingCart, FaHeart, FaCarSide } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { CART_UPDATED_EVENT, getCartCount } from "../utils/cart";
 
 export default function AutoGlowNavbar() {
     const [cartCount, setCartCount] = useState(0);
@@ -9,15 +10,7 @@ export default function AutoGlowNavbar() {
 
     useEffect(() => {
         const updateCartCount = () => {
-            const cart = localStorage.getItem('cart');
-            if (cart) {
-                const cartItems = JSON.parse(cart);
-                // Calculate total quantity of all items
-                const totalQuantity = cartItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
-                setCartCount(totalQuantity);
-            } else {
-                setCartCount(0);
-            }
+            setCartCount(getCartCount());
         };
 
         updateCartCount();
@@ -27,11 +20,11 @@ export default function AutoGlowNavbar() {
         };
         
         window.addEventListener('storage', handleStorageChange);
-        window.addEventListener('cartUpdated', handleStorageChange);
+        window.addEventListener(CART_UPDATED_EVENT, handleStorageChange);
         
         return () => {
             window.removeEventListener('storage', handleStorageChange);
-            window.removeEventListener('cartUpdated', handleStorageChange);
+            window.removeEventListener(CART_UPDATED_EVENT, handleStorageChange);
         };
     }, []);
 

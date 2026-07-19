@@ -1,7 +1,9 @@
-import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import StatusMessages from "./StatusMessages";
+import { API_ENDPOINTS } from "../config";
+import { postFormData } from "../utils/api";
 
 const SignUp = () => {
     let [username, updateUsername] = useState("")
@@ -29,15 +31,13 @@ const SignUp = () => {
 
         // try send data to sever
         try {
-            // create form data
-            const user_data = new FormData();
-            user_data.append("username", username);
-            user_data.append("email", email);
-            user_data.append("phone", phone);
-            user_data.append("password", password);
-
-            // use axios tosend data to sever
-            const response = await axios.post("https://peter511.alwaysdata.net/api/signup", user_data)
+            // use shared helper to send data to sever
+            const response = await postFormData(API_ENDPOINTS.signup, {
+                username,
+                email,
+                phone,
+                password,
+            })
             console.log(response);
             if (response.status === 200) {
                 setSuccess(response.data.message);
@@ -78,9 +78,7 @@ const SignUp = () => {
 
             <div className="col-md-6 card shadow p-4">
                 <h2>Sign Up</h2>
-                <h5 className="text-warning">{loading}</h5>
-                <h5 className="text-danger">{error}</h5>
-                <h5 className="text-success">{success}</h5>
+                <StatusMessages loading={loading} error={error} success={success} />
 
                 <form onSubmit={handleSubmit}>
 
