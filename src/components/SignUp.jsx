@@ -24,9 +24,6 @@ const SignUp = () => {
         setSuccess("")
         setLoading("Submitting Data! Please wait ....")
 
-        // confirm user input
-        console.log(username, email, phone, password);
-
         // try send data to sever
         try {
             // create form data
@@ -38,15 +35,17 @@ const SignUp = () => {
 
             // use axios tosend data to sever
             const response = await axios.post("https://peter511.alwaysdata.net/api/signup", user_data)
-            console.log(response);
             if (response.status === 200) {
                 setSuccess(response.data.message);
+                setLoading("");
+            } else {
+                setError(response.data?.message || "Sign up failed. Please try again.");
                 setLoading("");
             }
 
         } catch (error) {
-            console.log(error);
-            setError(error.message);
+            console.error(error);
+            setError(error?.response?.data?.message || error.message);
             setLoading("");
 
             updateUsername("")

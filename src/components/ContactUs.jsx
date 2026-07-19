@@ -43,10 +43,18 @@ const ContactUs = () => {
                 setSuccess("Message sent successfully!");
                 setFormData({ name: "", email: "", phone: "", message: "" });
             } else {
+                let message = "Failed to send message. Please try again.";
+                try {
+                    const data = await response.json();
+                    if (data && data.message) message = data.message;
+                } catch (parseError) {
+                    console.error("Failed to parse error response:", parseError);
+                }
                 setLoading("");
-                setError("Failed to send message. Please try again.");
+                setError(message);
             }
         } catch (error) {
+            console.error(error);
             setLoading("");
             setError("An error occurred. Please try again.");
         }

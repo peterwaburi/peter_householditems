@@ -47,7 +47,6 @@ const AddProducts = () => {
             data.append("product_image", product_image);
 
             const response = await axios.post("https://peter511.alwaysdata.net/api/add_product", data);
-            console.log(response)
 
             if (response.status === 200) {
                 setLoading("");
@@ -59,10 +58,14 @@ const AddProducts = () => {
                 setProductCartegory("");
                 setProductSubcategory("");
                 setProductImage("");
+            } else {
+                setError(response.data?.message || "Failed to add product. Please try again.")
+                setLoading("")
             }
 
         } catch (error) {
-            setError(error.message)
+            console.error(error)
+            setError(error?.response?.data?.message || error.message)
             setLoading("")
         }
 

@@ -17,8 +17,6 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(email, password);
-
         setLoading("Please Wait...");
         setSuccess("");
         setError("");
@@ -33,8 +31,6 @@ const SignIn = () => {
                 "https://peter511.alwaysdata.net/api/signin",
                 user_data
             );
-
-            console.log(response);
 
             if (response.status === 200 && response.data.user) {
 
@@ -52,10 +48,13 @@ const SignIn = () => {
 
                 // redirect home
                 navigate("/");
+            } else {
+                setError(response.data?.message || "Sign in failed. Please check your credentials.");
+                setLoading("");
             }
 
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(error?.response?.data?.message || error.message);
             setLoading("");
         }

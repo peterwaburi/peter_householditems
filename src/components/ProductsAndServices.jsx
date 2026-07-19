@@ -18,7 +18,13 @@ const ProductsAndServices = () => {
     const navigate = useNavigate();
 
     const addToCart = (product) => {
-        const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let currentCart = [];
+        try {
+            currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        } catch (error) {
+            console.error("Failed to read cart from storage:", error);
+            currentCart = [];
+        }
         
         // Use product name as unique identifier if ID is not available
         const uniqueIdentifier = product.id || product.product_name;
