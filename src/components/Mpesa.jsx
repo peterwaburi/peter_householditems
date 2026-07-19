@@ -1,13 +1,15 @@
-import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import StatusMessages from "./StatusMessages";
+import { API_ENDPOINTS, IMAGE_BASE_URL } from "../config";
+import { postFormData } from "../utils/api";
 
 const Mpesa = () => {
     const location = useLocation();
     const { product, cart, grandTotal } = location.state || {};
     console.log(location.state)
-    const img_url = "https://peter511.alwaysdata.net/static/images/";
+    const img_url = IMAGE_BASE_URL;
 
     // Determine if this is cart checkout or single product purchase
     const isCartCheckout = cart && grandTotal;
@@ -31,11 +33,10 @@ const Mpesa = () => {
         setLoading("Please Wait...")
 
         try {
-            const data = new FormData();
-            data.append("amount", amount)
-            data.append("phone", phone)
-
-            const response = await axios.post("https://peter511.alwaysdata.net/api/mpesa_payment", data)
+            const response = await postFormData(API_ENDPOINTS.mpesaPayment, {
+                amount,
+                phone,
+            })
             console.log(response)
 
             if (response.status === 200) {
@@ -75,9 +76,7 @@ const Mpesa = () => {
                 <h4 className="text-warning">Ksh {amount}</h4>
                 <hr />
 
-                <h6 className="text-warning">{loading}</h6>
-                <h6 className="text-danger">{error}</h6>
-                <h6 className="text-success">{success}</h6>
+                <StatusMessages loading={loading} error={error} success={success} as="h6" />
 
                 <form onSubmit={handleSubmit}>
                     <input

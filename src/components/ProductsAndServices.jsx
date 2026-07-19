@@ -5,51 +5,25 @@ import NavBar from "./NavBar";
 import BeautifulFooter from "./footer";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
+import { API_ENDPOINTS, IMAGE_BASE_URL } from "../config";
+import { addProductToCart } from "../utils/cart";
 
 const ProductsAndServices = () => {
 
     let [products, setProducts] = useState([]);
     let [loading, setLoading] = useState("");
     let [error, setError] = useState("");
-    let [cart, setCart] = useState([]);
 
-    const img_url = "https://peter511.alwaysdata.net/static/images/";
+    const img_url = IMAGE_BASE_URL;
 
     const navigate = useNavigate();
-
-    const addToCart = (product) => {
-        const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
-        
-        // Use product name as unique identifier if ID is not available
-        const uniqueIdentifier = product.id || product.product_name;
-        
-        // Check if product already exists in cart
-        const existingItemIndex = currentCart.findIndex(item => {
-            const itemIdentifier = item.id || item.product_name;
-            return itemIdentifier === uniqueIdentifier;
-        });
-        
-        if (existingItemIndex !== -1) {
-            // Update quantity if item exists
-            currentCart[existingItemIndex].quantity = (currentCart[existingItemIndex].quantity || 1) + 1;
-        } else {
-            // Add new item with quantity 1
-            currentCart.push({ ...product, quantity: 1 });
-        }
-        
-        setCart(currentCart);
-        localStorage.setItem('cart', JSON.stringify(currentCart));
-        window.dispatchEvent(new Event('cartUpdated'));
-    };
 
     const getProducts = async () => {
         setError("");
         setLoading("Fetching products please wait...");
 
         try {
-            const response = await axios.get(
-                "https://peter511.alwaysdata.net/api/get_products"
-            );
+            const response = await axios.get(API_ENDPOINTS.getProducts);
             setProducts(response.data);
             setLoading("");
         } catch (error) {
@@ -128,7 +102,7 @@ const ProductsAndServices = () => {
                                                                     justifyContent: 'center',
                                                                     fontSize: '14px'
                                                                 }}
-                                                                onClick={() => addToCart(product)}
+                                                                onClick={() => addProductToCart(product)}
                                                                 title="Add to Cart"
                                                             >
                                                                 <FaShoppingCart />

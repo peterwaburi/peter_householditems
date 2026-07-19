@@ -1,6 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import NavBar from "./NavBar";
+import StatusMessages from "./StatusMessages";
+import { API_ENDPOINTS } from "../config";
+import { postFormData } from "../utils/api";
 
 const AddProducts = () => {
     let [product_name, setProductName] = useState("");
@@ -38,15 +40,14 @@ const AddProducts = () => {
 
 
         try {
-            const data = new FormData()
-            data.append("product_name", product_name);
-            data.append("product_description", product_description);
-            data.append("product_cost", product_cost);
-            data.append("product_cartegory", product_cartegory);
-            data.append("product_subcategory", product_subcategory);
-            data.append("product_image", product_image);
-
-            const response = await axios.post("https://peter511.alwaysdata.net/api/add_product", data);
+            const response = await postFormData(API_ENDPOINTS.addProduct, {
+                product_name,
+                product_description,
+                product_cost,
+                product_cartegory,
+                product_subcategory,
+                product_image,
+            });
             console.log(response)
 
             if (response.status === 200) {
@@ -74,9 +75,7 @@ const AddProducts = () => {
             <NavBar/>
             <div className="col-md-6 card shadow p-4">
                 <h2>Add Product</h2>
-                <h5 className="text-danger">{error}</h5>
-                <h5 className="text-warning">{loading}</h5>
-                <h5 className="text-success">{success}</h5>
+                <StatusMessages loading={loading} error={error} success={success} />
 
                 <form onSubmit={handleSubmit}>
                     <input type="text"
