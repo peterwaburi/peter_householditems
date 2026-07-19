@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./NavBar";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import LoadingSpinner from "./LoadingSpinner";
 
 const SignIn = () => {
 
@@ -11,6 +13,7 @@ const SignIn = () => {
     let [loading, setLoading] = useState("");
     let [success, setSuccess] = useState("");
     let [error, setError] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     let navigate = useNavigate();
 
@@ -36,22 +39,32 @@ const SignIn = () => {
 
             console.log(response);
 
-            if (response.status === 200 && response.data.user) {
+            if (response.status === 200) {
+                console.log("Full response data:", response.data);
+                if (response.data.user) {
+                    console.log("User object being stored:", response.data.user);
+                    // ✅ STORE USER (important for TopBar greeting)
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(response.data.user)
+                    );
 
-                // ✅ STORE USER (important for TopBar greeting)
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(response.data.user)
-                );
+                    setSuccess(response.data.message);
+                    setLoading("");
 
-                setSuccess(response.data.message);
+                    // Notify other components (TopBar)
+                    window.dispatchEvent(new Event("userLoggedIn"));
+
+                    // redirect home
+                    navigate("/");
+                } else {
+                    console.log("No user data in response");
+                    setError("Login failed: No user data returned");
+                    setLoading("");
+                }
+            } else {
+                setError("Login failed: Invalid response");
                 setLoading("");
-
-                // OPTIONAL: notify other components (TopBar)
-                window.dispatchEvent(new Event("storage"));
-
-                // redirect home
-                navigate("/");
             }
 
         } catch (error) {
@@ -68,16 +81,16 @@ const SignIn = () => {
 
             <div className="col-md-6 card shadow p-4">
 
-                <h2>Sign In</h2>
+                <h2 style={{ color: '#0F4C75', fontWeight: '700' }}>Sign In</h2>
 
-                <h5 className="text-warning">{loading}</h5>
-                <h5 className="text-danger">{error}</h5>
-                <h5 className="text-success">{success}</h5>
+                {loading && <LoadingSpinner message={loading} />}
+                <h5 style={{ color: '#DC3545' }}>{error}</h5>
+                <h5 style={{ color: '#28A745' }}>{success}</h5>
 
                 <form onSubmit={handleSubmit}>
 
                     <input
-                        type="text"
+                        type="email"
                         className="form-control"
                         placeholder="Enter email"
                         required
@@ -86,17 +99,36 @@ const SignIn = () => {
                     />
                     <br />
 
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Enter your password"
-                        required
-                        onChange={(e) => updatePassword(e.target.value)}
-                        value={password}
-                    />
+                    <div style={{ position: "relative" }}>
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            placeholder="Enter your password"
+                            required
+                            onChange={(e) => updatePassword(e.target.value)}
+                            value={password}
+                            style={{ paddingRight: "40px" }}
+                        />
+                        <span
+                            onClick={() => setShowPassword(!showPassword)}
+                            style={{
+                                position: "absolute",
+                                right: "12px",
+                                top: "18px",
+                                cursor: "pointer",
+                                color: "#555",
+                                zIndex: "10"
+                            }}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
                     <br />
 
-                    <button className="btn btn-dark">
+                    <button 
+                        className="btn"
+                        style={{ backgroundColor: '#1B262C', borderColor: '#1B262C', color: '#FFFFFF' }}
+                    >
                         Sign In
                     </button>
 

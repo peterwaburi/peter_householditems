@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import BeautifulFooter from "./footer";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ProductsAndServices = () => {
 
@@ -79,7 +80,7 @@ const ProductsAndServices = () => {
         <div>
             <NavBar />
             <Container className="mt-4">
-                
+                {loading && <LoadingSpinner message={loading} />}
                 
 
                 <div className="mb-5">
@@ -87,7 +88,7 @@ const ProductsAndServices = () => {
                         {groupedProducts && Object.keys(groupedProducts).length > 0 && (
                             Object.keys(groupedProducts).map((category) => (
                                 <div key={category} className="mb-4">
-                                    <h4 className="bg-primary text-white p-2 text-center rounded">
+                                    <h4 className="p-2 text-center rounded" style={{ backgroundColor: '#3282B8', color: '#FFFFFF', fontWeight: '700' }}>
                                         {category}
                                     </h4>
                                     <Row className="mt-3">
@@ -104,21 +105,25 @@ const ProductsAndServices = () => {
                                                         <p className="text-muted">
                                                             {product.product_description}
                                                         </p>
-                                                        <b className="text-warning">
+                                                        <b style={{ color: '#FFC107' }}>
                                                             Ksh {product.product_cost}
                                                         </b>
                                                         <br /><br />
                                                         
                                                         <div className="d-flex align-items-center gap-2">
                                                             <button
-                                                                className="btn btn-dark btn-sm flex-grow-1"
+                                                                className="btn btn-sm flex-grow-1"
+                                                                style={{ backgroundColor: '#1B262C', borderColor: '#1B262C', color: '#FFFFFF' }}
                                                                 onClick={() => navigate("/mpesa", { state: { product } })}
                                                             >
                                                                 Purchase Now
                                                             </button>
                                                             <button
-                                                                className="btn btn-outline-primary"
+                                                                className="btn"
                                                                 style={{
+                                                                    backgroundColor: '#3282B8',
+                                                                    borderColor: '#3282B8',
+                                                                    color: '#FFFFFF',
                                                                     borderRadius: '50%',
                                                                     width: '35px',
                                                                     height: '35px',

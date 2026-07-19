@@ -5,7 +5,6 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import AddProducts from './components/AddProducts';
 import ProductsAndServices from './components/ProductsAndServices';
-import About from './components/About';
 import Mpesa from './components/Mpesa';
 import Cart from './components/Cart';
 import "bootstrap/dist/css/bootstrap.min.css";

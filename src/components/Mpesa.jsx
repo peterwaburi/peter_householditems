@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Mpesa = () => {
     const location = useLocation();
@@ -75,7 +76,7 @@ const Mpesa = () => {
                 <h4 className="text-warning">Ksh {amount}</h4>
                 <hr />
 
-                <h6 className="text-warning">{loading}</h6>
+                {loading && <LoadingSpinner message={loading} />}
                 <h6 className="text-danger">{error}</h6>
                 <h6 className="text-success">{success}</h6>
 

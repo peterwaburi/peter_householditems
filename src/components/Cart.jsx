@@ -95,7 +95,7 @@ const Cart = () => {
         <div>
             <NavBar />
             <Container className="mt-4">
-                <h2 className="text-center mb-4">Shopping Cart</h2>
+                <h2 className="text-center mb-4" style={{ color: '#0F4C75', fontWeight: '700' }}>Shopping Cart</h2>
                 
                 <Card className="mb-4">
                     <Card.Body>
@@ -130,12 +130,12 @@ const Cart = () => {
                                             <strong>{item.product_name}</strong>
                                         </td>
                                         <td className="align-middle">
-                                            <span className="badge bg-info text-white">
+                                            <span className="badge" style={{ backgroundColor: '#17A2B8', color: '#FFFFFF' }}>
                                                 {item.product_cartegory || 'General'}
                                             </span>
                                         </td>
                                         <td className="align-middle">
-                                            <span className="text-warning fw-bold">
+                                            <span style={{ color: '#FFC107', fontWeight: 'bold' }}>
                                                 Ksh {parseFloat(item.product_cost || 0).toFixed(2)}
                                             </span>
                                         </td>
@@ -162,16 +162,16 @@ const Cart = () => {
                                             </div>
                                         </td>
                                         <td className="align-middle">
-                                            <span className="text-success fw-bold">
+                                            <span style={{ color: '#28A745', fontWeight: 'bold' }}>
                                                 Ksh {(parseFloat(item.product_cost || 0) * (item.quantity || 1)).toFixed(2)}
                                             </span>
                                         </td>
                                         <td className="align-middle">
                                             <Button
-                                                variant="danger"
                                                 size="sm"
                                                 onClick={() => removeFromCart(index)}
                                                 title="Remove from cart"
+                                                style={{ backgroundColor: '#DC3545', borderColor: '#DC3545', color: '#FFFFFF' }}
                                             >
                                                 <FaTrash />
                                             </Button>
@@ -186,9 +186,9 @@ const Cart = () => {
                 <Row className="mt-4">
                     <Col md={6}>
                         <Button
-                            variant="outline-danger"
                             onClick={clearCart}
                             className="w-100"
+                            style={{ backgroundColor: 'transparent', borderColor: '#DC3545', color: '#DC3545' }}
                         >
                             Clear Cart
                         </Button>
@@ -197,14 +197,14 @@ const Cart = () => {
                         <Card className="text-center">
                             <Card.Body>
                                 <h4 className="mb-3">Grand Total</h4>
-                                <h2 className="text-success">
+                                <h2 style={{ color: '#28A745' }}>
                                     Ksh {grandTotal.toFixed(2)}
                                 </h2>
                                 <Button
-                                    variant="success"
                                     size="lg"
                                     className="mt-3"
                                     onClick={handleProceedToCheckout}
+                                    style={{ backgroundColor: '#28A745', borderColor: '#28A745', color: '#FFFFFF' }}
                                 >
                                     Proceed to Checkout
                                 </Button>

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import NavBar from "./NavBar";
+import BeautifulFooter from "./footer";
+import LoadingSpinner from "./LoadingSpinner";
 
 const AddProducts = () => {
     let [product_name, setProductName] = useState("");
@@ -74,8 +76,8 @@ const AddProducts = () => {
             <NavBar/>
             <div className="col-md-6 card shadow p-4">
                 <h2>Add Product</h2>
+                {loading && <LoadingSpinner message={loading} />}
                 <h5 className="text-danger">{error}</h5>
-                <h5 className="text-warning">{loading}</h5>
                 <h5 className="text-success">{success}</h5>
 
                 <form onSubmit={handleSubmit}>
@@ -162,6 +164,7 @@ const AddProducts = () => {
 
                 </form>
             </div>
+            <BeautifulFooter />
         </div>
     );
 }

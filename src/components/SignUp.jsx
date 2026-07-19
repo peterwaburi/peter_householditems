@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import LoadingSpinner from "./LoadingSpinner";
 
 const SignUp = () => {
+    const navigate = useNavigate();
     let [username, updateUsername] = useState("")
     let [email, updateEmail] = useState("")
     let [phone, updatePhone] = useState("")
@@ -42,6 +44,18 @@ const SignUp = () => {
             if (response.status === 200) {
                 setSuccess(response.data.message);
                 setLoading("");
+                
+                // Store user data in localStorage after successful signup
+                if (response.data.user) {
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                    // Dispatch event to notify other components
+                    window.dispatchEvent(new Event("userLoggedIn"));
+                }
+                
+                // Navigate to home page after 2 seconds delay
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
             }
 
         } catch (error) {
@@ -77,10 +91,10 @@ const SignUp = () => {
         <div className="row justify-content-center mt-4">
 
             <div className="col-md-6 card shadow p-4">
-                <h2>Sign Up</h2>
-                <h5 className="text-warning">{loading}</h5>
-                <h5 className="text-danger">{error}</h5>
-                <h5 className="text-success">{success}</h5>
+                <h2 style={{ color: '#0F4C75', fontWeight: '700' }}>Sign Up</h2>
+                {loading && <LoadingSpinner message={loading} />}
+                <h5 style={{ color: '#DC3545' }}>{error}</h5>
+                <h5 style={{ color: '#28A745' }}>{success}</h5>
 
                 <form onSubmit={handleSubmit}>
 
@@ -109,7 +123,7 @@ const SignUp = () => {
                         onChange={(e) => { updatePhone(e.target.value) }}
                         value={phone} /><br />
 
-                    <div style={{ position: "constant" }}
+                    <div style={{ position: "relative" }}
                         className="password-wrapper">
                         <input
                             type={showPassword ? "text" : "password"}
@@ -125,13 +139,13 @@ const SignUp = () => {
                         />
                         {password && (
                             <small
-                                className={
-                                    passwordStrength === "Weak"
-                                        ? "text-danger"
+                                style={{
+                                    color: passwordStrength === "Weak"
+                                        ? "#DC3545"
                                         : passwordStrength === "Medium"
-                                            ? "text-warning"
-                                            : "text-success"
-                                }
+                                            ? "#FFC107"
+                                            : "#28A745"
+                                }}
                             >
                                 Password strength: {passwordStrength}
                             </small>
@@ -140,11 +154,11 @@ const SignUp = () => {
                             onClick={() => setShowPassword(!showPassword)}
                             style={{
                                 position: "absolute",
-                                right: "10px",
-                                top: "50%",
-                                transform: "translateY(-50%)",
+                                right: "12px",
+                                top: "18px",
                                 cursor: "pointer",
-                                color: "#555"
+                                color: "#555",
+                                zIndex: "10"
                             }}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -152,7 +166,10 @@ const SignUp = () => {
 
                     </div>
                     <br />
-                    <button className="btn btn-dark">
+                    <button 
+                        className="btn"
+                        style={{ backgroundColor: '#1B262C', borderColor: '#1B262C', color: '#FFFFFF' }}
+                    >
                         Sign Up
                     </button><br />
 

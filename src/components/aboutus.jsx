@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./NavBar";
+import BeautifulFooter from "./footer";
 
 const AboutUs = () => {
     return (
@@ -117,6 +118,7 @@ const AboutUs = () => {
                 </div>
 
             </div> {/* container closes here */}
+            <BeautifulFooter />
         </div>
     );
 };

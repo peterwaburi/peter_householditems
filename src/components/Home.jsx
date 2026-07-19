@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import BeautifulFooter from "./footer";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -16,17 +17,17 @@ const Home = () => {
                             <div className="card-body text-center">
 
                                 {/* HERO TEXT */}
-                                <h1 className="card-title text-primary mb-4">
+                                <h1 className="card-title mb-4" style={{ color: '#0F4C75', fontWeight: '800' }}>
                                     Welcome to Blue Wave Car Wash
                                 </h1>
 
-                                <p className="lead mb-4">
+                                <p className="lead mb-4" style={{ color: '#1B262C' }}>
                                     Your premium destination for professional car care and detailing services
                                 </p>
 
                                 {/* SERVICES INTRO */}
                                 <div className="text-center mb-5">
-                                    <h3 className="text-success">Our Services</h3>
+                                    <h3 style={{ color: '#28A745', fontWeight: '700' }}>Our Services</h3>
                                     <p className="mb-4">
                                         We provide exceptional car washing and auto spa treatments to keep your vehicle looking its best
                                     </p>
@@ -34,12 +35,12 @@ const Home = () => {
 
                                 {/* WHY CHOOSE US */}
                                 <div className="text-center mb-5">
-                                    <h3 className="text-info">Why Choose Blue Wave?</h3>
+                                    <h3 style={{ color: '#17A2B8', fontWeight: '700' }}>Why Choose Blue Wave?</h3>
 
                                     <div className="row text-start mt-3">
 
                                         <div className="col-md-6 mb-3">
-                                            <h5 className="text-primary">
+                                            <h5 style={{ color: '#3282B8', fontWeight: '600' }}>
                                                 <i className="fas fa-star me-2"></i>
                                                 Professional Excellence
                                             </h5>
@@ -49,7 +50,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="col-md-6 mb-3">
-                                            <h5 className="text-success">
+                                            <h5 style={{ color: '#28A745', fontWeight: '600' }}>
                                                 <i className="fas fa-shield-alt me-2"></i>
                                                 Quality Products
                                             </h5>
@@ -59,7 +60,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="col-md-6 mb-3">
-                                            <h5 className="text-warning">
+                                            <h5 style={{ color: '#FFC107', fontWeight: '600' }}>
                                                 <i className="fas fa-clock me-2"></i>
                                                 Quick Service
                                             </h5>
@@ -69,7 +70,7 @@ const Home = () => {
                                         </div>
 
                                         <div className="col-md-6 mb-3">
-                                            <h5 className="text-info">
+                                            <h5 style={{ color: '#17A2B8', fontWeight: '600' }}>
                                                 <i className="fas fa-heart me-2"></i>
                                                 Customer Satisfaction
                                             </h5>
@@ -83,7 +84,7 @@ const Home = () => {
 
                                 {/* GALLERY */}
                                 <div className="text-center mb-5">
-                                    <h3 className="text-dark">Our Gallery</h3>
+                                    <h3 style={{ color: '#1B262C', fontWeight: '700' }}>Our Gallery</h3>
                                     <p className="mb-4">
                                         Browse through our showcase of beautifully transformed vehicles
                                     </p>
@@ -143,7 +144,11 @@ const Home = () => {
 
                                 {/* CTA */}
                                 <div className="text-center mt-5">
-                                    <button className="btn btn-primary btn-lg" onClick={() => navigate('/productsandservices')}>
+                                    <button 
+                                        className="btn btn-lg" 
+                                        style={{ backgroundColor: '#3282B8', borderColor: '#3282B8', color: '#FFFFFF' }}
+                                        onClick={() => navigate('/productsandservices')}
+                                    >
                                         Purchase With Us Today
                                     </button>
                                 </div>
@@ -154,6 +159,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <BeautifulFooter />
         </div>
     );
 };

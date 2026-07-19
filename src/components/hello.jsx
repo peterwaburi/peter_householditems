@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -7,8 +7,27 @@ function TopBar() {
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user"))
     );
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const userData = JSON.parse(localStorage.getItem("user"));
+            console.log("User data from storage:", userData);
+            setUser(userData);
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('userLoggedIn', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('userLoggedIn', handleStorageChange);
+        };
+    }, []);
+
     const handleLogout = () => {
+        localStorage.removeItem("user");
         setUser(null);
+        window.location.href = "/";
     };
 
     return (
@@ -22,7 +41,7 @@ function TopBar() {
                     style={{
                         fontSize: "20px",
                         fontWeight: "700",
-                        color: "#f9fafb",
+                        color: "#F8F9FA",
                         fontFamily: "Segoe UI, sans-serif"
                     }}
                 >
@@ -31,7 +50,7 @@ function TopBar() {
                         user ? (
                             <>
                                 <span style={{ marginRight: "10px" }}>
-                                    Hello, {user.name}
+                                    Hello, {user.user_name || user.username || user.name || user.email || "User"}
                                 </span>
 
                                 <span>
