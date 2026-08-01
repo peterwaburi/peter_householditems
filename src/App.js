@@ -49,6 +49,20 @@ import Checkout from "./pages/customer/Checkout";
 import PaymentSuccess from "./pages/customer/PaymentSuccess";
 import PaymentFailed from "./pages/customer/PaymentFailed";
 import BookingSuccess from "./pages/customer/BookingSuccess";
+import WorkerDashboard from "./pages/worker/Dashboard";
+import Attendance from "./pages/worker/Attendance";
+import LeaveRequest from "./pages/worker/LeaveRequest";
+import Earnings from "./pages/worker/Earnings";
+import WorkerMessages from "./pages/worker/Messages";
+import Notifications from "./pages/worker/Notifications";
+import WorkerSettings from "./pages/worker/Settings";
+import Wishlist from "./pages/customer/Wishlist";
+import Invoices from "./pages/customer/Invoices";
+import Activity from "./pages/customer/Activity";
+import Profile from "./pages/customer/Profile";
+import CustomerSettings from "./pages/customer/Settings";
+import Support from "./pages/customer/Support";
+import FAQs from "./pages/customer/FAQs";
 
 function App() {
   return (
@@ -92,6 +106,13 @@ function App() {
             <Route path="/customer/payment-success" element={<PaymentSuccess />} />
             <Route path="/customer/payment-failed" element={<PaymentFailed />} />
             <Route path="/customer/booking-success" element={<BookingSuccess />} />
+            <Route path="/customer/wishlist" element={<Wishlist />} />
+            <Route path="/customer/invoices" element={<Invoices />} />
+            <Route path="/customer/activity" element={<Activity />} />
+            <Route path="/customer/profile" element={<Profile />} />
+            <Route path="/customer/settings" element={<CustomerSettings />} />
+            <Route path="/customer/support" element={<Support />} />
+            <Route path="/customer/faqs" element={<FAQs />} />
           </Route>
 
           <Route element={<WorkerLayout />}>
@@ -100,6 +121,13 @@ function App() {
             <Route path="/worker/history" element={<WorkerHistory />} />
             <Route path="/worker/notifications" element={<WorkerNotifications />} />
             <Route path="/worker/profile" element={<WorkerProfile />} />
+            <Route path="/worker/dashboard" element={<WorkerDashboard />} />
+            <Route path="/worker/attendance" element={<Attendance />} />
+            <Route path="/worker/leave-request" element={<LeaveRequest />} />
+            <Route path="/worker/earnings" element={<Earnings />} />
+            <Route path="/worker/messages" element={<WorkerMessages />} />
+            <Route path="/worker/notifications" element={<Notifications />} />
+            <Route path="/worker/settings" element={<WorkerSettings />} />
           </Route>
 
           <Route element={<ManagerLayout />}>

@@ -1,0 +1,17 @@
+.worker-dashboard .card,
+.worker-dashboard .table{
+    border-radius:20px;
+}
+
+.worker-dashboard .card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.worker-dashboard .btn{
+    border-radius:30px;
+}
+
+.worker-dashboard .badge{
+    border-radius:20px;
+}

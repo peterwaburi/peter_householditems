@@ -1,0 +1,24 @@
+.booking-card,
+.timeline-card,
+.receipt-card{
+    border-radius:20px;
+}
+
+.booking-card:hover,
+.timeline-card:hover,
+.receipt-card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.modal-content{
+    border-radius:20px;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+.table td{
+    padding:12px;
+}

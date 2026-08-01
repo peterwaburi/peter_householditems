@@ -1,132 +1,81 @@
-import React, { useState } from "react";
+import { Container, Card, Form, Button } from "react-bootstrap";
+import { useState } from "react";
 
-const BookService = () => {
-    const [booking, setBooking] = useState({
-        service: "",
-        package: "",
-        vehicle: "",
-        date: "",
-        time: "",
-        location: "",
-        notes: ""
-    });
+import BookingCalendar from "../../components/BookingCalendar";
+import TimeSlotPicker from "../../components/TimeSlotPicker";
+import ServiceSelector from "../../components/ServiceSelector";
+import LocationPicker from "../../components/LocationPicker";
 
-    const handleChange = (e) => {
-        setBooking({
-            ...booking,
-            [e.target.name]: e.target.value
-        });
-    };
+import "../../styles/booking.css";
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(booking);
-        alert("Booking submitted successfully.");
-    };
+function BookService() {
 
-    return (
-        <div className="container mt-5">
-            <div className="card shadow p-4">
-                <h2 className="mb-4">Book a Service</h2>
+    const [date,setDate]=useState("");
+    const [time,setTime]=useState("08:00 AM");
+    const [service,setService]=useState("Exterior Wash");
+    const [location,setLocation]=useState("");
 
-                <form onSubmit={handleSubmit}>
+    return(
 
-                    <div className="mb-3">
-                        <label>Service</label>
-                        <select
-                            className="form-control"
-                            name="service"
-                            onChange={handleChange}
-                            required
+        <Container className="py-5">
+
+            <Card className="booking-card border-0">
+
+                <Card.Body>
+
+                    <h2 className="fw-bold text-primary mb-4">
+                        Book a Service
+                    </h2>
+
+                    <Form>
+
+                        <Form.Group className="mb-3">
+
+                            <Form.Label>Vehicle</Form.Label>
+
+                            <Form.Control
+                                placeholder="Toyota Prado"
+                            />
+
+                        </Form.Group>
+
+                        <ServiceSelector
+                            value={service}
+                            onChange={(e)=>setService(e.target.value)}
+                        />
+
+                        <BookingCalendar
+                            value={date}
+                            onChange={(e)=>setDate(e.target.value)}
+                        />
+
+                        <TimeSlotPicker
+                            value={time}
+                            onChange={(e)=>setTime(e.target.value)}
+                        />
+
+                        <LocationPicker
+                            value={location}
+                            onChange={(e)=>setLocation(e.target.value)}
+                        />
+
+                        <Button
+                            className="w-100"
+                            size="lg"
                         >
-                            <option value="">Select Service</option>
-                            <option>Car Wash</option>
-                            <option>Interior Cleaning</option>
-                            <option>Engine Wash</option>
-                            <option>Carpet Cleaning</option>
-                            <option>Seat Cleaning</option>
-                        </select>
-                    </div>
+                            Book Now
+                        </Button>
 
-                    <div className="mb-3">
-                        <label>Package</label>
-                        <select
-                            className="form-control"
-                            name="package"
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Select Package</option>
-                            <option>Basic</option>
-                            <option>Standard</option>
-                            <option>Premium</option>
-                        </select>
-                    </div>
+                    </Form>
 
-                    <div className="mb-3">
-                        <label>Vehicle Type</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="vehicle"
-                            onChange={handleChange}
-                            placeholder="e.g. Toyota Prado"
-                            required
-                        />
-                    </div>
+                </Card.Body>
 
-                    <div className="mb-3">
-                        <label>Date</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="date"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+            </Card>
 
-                    <div className="mb-3">
-                        <label>Time</label>
-                        <input
-                            type="time"
-                            className="form-control"
-                            name="time"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+        </Container>
 
-                    <div className="mb-3">
-                        <label>Location</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="location"
-                            onChange={handleChange}
-                            placeholder="Enter service location"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label>Additional Notes</label>
-                        <textarea
-                            className="form-control"
-                            rows="4"
-                            name="notes"
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <button className="btn btn-primary w-100">
-                        Submit Booking
-                    </button>
-
-                </form>
-            </div>
-        </div>
     );
-};
+
+}
 
 export default BookService;

@@ -1,0 +1,33 @@
+.cart-summary,
+.cart-totals,
+.coupon-card{
+
+    border-radius:20px;
+
+}
+
+.card{
+
+    border-radius:20px;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    transition:.3s;
+
+}
+
+.btn{
+
+    border-radius:30px;
+
+}
+
+.form-control{
+
+    border-radius:12px;
+
+}

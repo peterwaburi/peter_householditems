@@ -1,0 +1,20 @@
+.booking-card{
+    border-radius:20px;
+}
+
+.booking-card .form-control,
+.booking-card .form-select{
+    border-radius:12px;
+}
+
+.booking-card .btn{
+    border-radius:30px;
+}
+
+.booking-card textarea{
+    resize:none;
+}
+
+.booking-card{
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}

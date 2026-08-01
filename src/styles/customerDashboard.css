@@ -1,0 +1,21 @@
+.customer-dashboard .card{
+    border-radius:20px;
+    transition:.3s;
+}
+
+.customer-dashboard .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12)!important;
+}
+
+.customer-dashboard .btn{
+    border-radius:30px;
+}
+
+.customer-dashboard .badge{
+    border-radius:20px;
+}
+
+.customer-dashboard .progress{
+    height:12px;
+}

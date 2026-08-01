@@ -1,0 +1,41 @@
+.dashboard-card,
+.loyalty-card,
+.statistics-card{
+
+    border-radius:20px;
+
+}
+
+.card{
+
+    border-radius:20px;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    transition:.3s;
+
+}
+
+.progress{
+
+    height:12px;
+
+    border-radius:20px;
+
+}
+
+.progress-bar{
+
+    background:#0F4C81;
+
+}
+
+.btn{
+
+    border-radius:30px;
+
+}

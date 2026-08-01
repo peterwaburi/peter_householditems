@@ -1,0 +1,27 @@
+.card{
+    border-radius:20px;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+.accordion-button{
+    font-weight:600;
+}
+
+.accordion-item{
+    border-radius:12px;
+    margin-bottom:10px;
+    overflow:hidden;
+}
