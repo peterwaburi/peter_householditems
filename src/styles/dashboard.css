@@ -1,0 +1,30 @@
+.dashboard-card{
+    border-radius:18px;
+}
+
+.dashboard-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+
+.dashboard-card h2{
+    margin:0;
+    color:#0F4C81;
+}
+
+.table tbody tr:hover{
+    background:#f8f9fa;
+}
+
+.card{
+    border-radius:18px;
+}
+
+.btn{
+    border-radius:30px;
+}

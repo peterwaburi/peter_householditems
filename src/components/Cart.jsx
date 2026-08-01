@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { Container, Table, Button, Card, Row, Col } from "react-bootstrap";
 import { FaShoppingCart, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
@@ -78,7 +76,6 @@ const Cart = () => {
     if (cart.length === 0) {
         return (
             <div>
-                <NavBar />
                 <Container className="mt-5">
                     <Card className="text-center p-5">
                         <FaShoppingCart size={64} className="text-muted mb-3" />
@@ -86,14 +83,12 @@ const Cart = () => {
                         <p className="text-muted">Add some products to your cart to see them here!</p>
                     </Card>
                 </Container>
-                <BeautifulFooter />
-            </div>
+                </div>
         );
     }
 
     return (
         <div>
-            <NavBar />
             <Container className="mt-4">
                 <h2 className="text-center mb-4" style={{ color: '#0F4C75', fontWeight: '700' }}>Shopping Cart</h2>
                 
@@ -213,8 +208,7 @@ const Cart = () => {
                     </Col>
                 </Row>
             </Container>
-            <BeautifulFooter />
-        </div>
+            </div>
     );
 };
 

@@ -1,56 +1,76 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import { Route, Routes } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import AddProducts from './components/AddProducts';
 import ProductsAndServices from './components/ProductsAndServices';
 import Mpesa from './components/Mpesa';
 import Cart from './components/Cart';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.min.js'
-import BeautifulFooter from './components/footer';
-import TopBar from './components/hello';
+import TopBar from './components/TopBar';
 import ContactUs from './components/ContactUs';
 import Home from './components/Home';
 import AboutUs from './components/aboutus';
 
 
+import CustomerDashboard from "./pages/customer/CustomerDashboard";
+import BookService from "./pages/customer/BookService";
+import PublicLayout from "./layouts/PublicLayout";
+import CustomerLayout from "./layouts/CustomerLayout";
+import WorkerLayout from "./layouts/WorkerLayout";
+import ManagerLayout from "./layouts/ManagerLayout";
+import Shop from './components/Shop';
+import Services from "./components/Services";
+import NavBar from './components/layout/NavBar';
+
 function App() {
   return (
-    <BrowserRouter>
-      <div className="container-fluid">
-        <div className="App">
 
-          <header className="App-header text-center">
+    <div className="container-fluid">
+      <div className="App">
 
-            <h1 className="logo-title">
-              Bluewave <span className="highlight">Carwash</span> & Autospa
-            </h1>
+       
 
-            <h3 className="subtitle">
-              Premium care for your vehicle at affordable prices
-            </h3>
-            <TopBar />
-          </header>
 
-          <Routes>
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/addproducts' element={<AddProducts />} />
-            <Route path='/' element={<Home />} />
-            <Route path='/productsandservices' element={<ProductsAndServices />} />
-            <Route path='/about' element={<AboutUs />} />
+        <TopBar />
+        <NavBar />
 
-            <Route path='/mpesa' element={<Mpesa />} />
-            <Route path='/contact' element={<ContactUs />} />
-            <Route path='/cart' element={<Cart />} />
 
-          </Routes>
-        </div>
+
+        <Routes>
+
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/mpesa" element={<Mpesa />} />
+          </Route>
+
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+
+          <Route element={<CustomerLayout />}>
+            <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+            <Route path="/customer/book" element={<BookService />} />
+          </Route>
+
+          <Route element={<WorkerLayout />}>
+            {/* Worker routes will go here */}
+          </Route>
+
+          <Route element={<ManagerLayout />}>
+            {/* Manager routes will go here */}
+          </Route>
+
+
+        </Routes>
       </div>
+    </div>
 
-    </BrowserRouter>
+
 
   );
 }

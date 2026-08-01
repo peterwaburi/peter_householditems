@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import NavBar from "./NavBar";
 import LoadingSpinner from "./LoadingSpinner";
 
 const Mpesa = () => {
@@ -54,8 +53,7 @@ const Mpesa = () => {
 
     return (
         <div className="row justify-content-center mt-4">
-               <NavBar />
-            <h2>LIPA NA MPESA</h2>
+               <h2>LIPA NA MPESA</h2>
 
             <div className="col-md-3">
                 {!isCartCheckout && product && (

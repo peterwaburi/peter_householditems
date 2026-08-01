@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "./NavBar";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import LoadingSpinner from "./LoadingSpinner";
 
@@ -77,7 +76,7 @@ const SignIn = () => {
     return (
         <div className="row justify-content-center mt-4">
 
-            <NavBar />
+            
 
             <div className="col-md-6 card shadow p-4">
 

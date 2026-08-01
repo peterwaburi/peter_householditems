@@ -1,0 +1,35 @@
+.manager-card{
+    border-radius:18px;
+    transition:.3s;
+}
+
+.manager-card:hover{
+    transform:translateY(-5px);
+}
+
+.manager-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+
+.manager-card h2{
+    color:#0F4C81;
+    margin:0;
+}
+
+.card{
+    border-radius:18px;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+.table tbody tr:hover{
+    background:#f8f9fa;
+}

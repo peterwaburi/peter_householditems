@@ -1,17 +1,32 @@
 import { useNavigate } from "react-router-dom";
-import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
+import HeroCarousel from "./HeroCarousel";
+import Statistics from "./Statistics";
+import FeaturedServices from "./FeaturedServices";
+import PremiumPackages from "./PremiumPackages";
+import WhyChooseUs from "./WhyChooseUs";
+import FeaturedProducts from "./FeaturedProducts";
+import Gallery from "./Gallery";
+import Testimonials from "./Testimonials";
+import CallToAction from "./CallToAction";
 
 const Home = () => {
     const navigate = useNavigate();
 
     return (
         <div>
-            <NavBar />
-
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-10 mx-auto">
+
+                        <HeroCarousel />
+                        <Statistics />
+                        <FeaturedServices />
+                        <PremiumPackages />
+                        <WhyChooseUs />
+                        <FeaturedProducts />
+                        <Gallery />
+                        <Testimonials />
+                        <CallToAction />
 
                         <div className="card shadow">
                             <div className="card-body text-center">
@@ -159,8 +174,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <BeautifulFooter />
-        </div>
+            </div>
     );
 };
 

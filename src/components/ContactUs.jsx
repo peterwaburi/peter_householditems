@@ -9,8 +9,6 @@ import {
     FaInstagram
 } from "react-icons/fa";
 import axios from "axios";
-import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
 import LoadingSpinner from "./LoadingSpinner";
 
 function ContactUs() {
@@ -62,8 +60,6 @@ function ContactUs() {
 
     return (
         <div className="contact-page">
-
-            <NavBar />
 
             {/* separator */}
             <hr className="nav-separator" style={{ borderColor: '#3282B8', margin: '0 0 20px 0' }} />
@@ -335,10 +331,9 @@ function ContactUs() {
 
             <hr className="section-separator" style={{ borderColor: '#3282B8', margin: '20px 0' }} />
 
-            <BeautifulFooter />
-
-        </div>
+            </div>
     );
 }
 
 export default ContactUs;
+

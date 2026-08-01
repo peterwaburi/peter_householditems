@@ -1,13 +1,19 @@
 import React from "react";
-import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
+import PageHeader from "./common/PageHeader";
 
 const AboutUs = () => {
     return (
         <div>
-            <NavBar />
-
             <div className="container py-5">
+
+                <>
+                    <PageHeader
+                        title="About BlueWave"
+                        subtitle="Learn more about our journey, our mission and the people behind our professional services."
+                    />
+
+                    {/* Existing About page content */}
+                </>
 
                 {/* TITLE */}
                 <div className="text-center mb-5">
@@ -118,7 +124,6 @@ const AboutUs = () => {
                 </div>
 
             </div> {/* container closes here */}
-            <BeautifulFooter />
         </div>
     );
 };

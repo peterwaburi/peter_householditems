@@ -1,0 +1,36 @@
+.product-card{
+    border-radius:18px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15)!important;
+}
+
+.product-card img{
+    transition:.4s;
+}
+
+.product-card:hover img{
+    transform:scale(1.05);
+}
+
+.product-card .card-title{
+    color:#0F4C81;
+    font-weight:700;
+}
+
+.product-card .btn{
+    width:100%;
+    border-radius:30px;
+}
+
+.product-card .badge{
+    font-size:.8rem;
+}
+
+.product-card h5{
+    font-weight:700;
+}

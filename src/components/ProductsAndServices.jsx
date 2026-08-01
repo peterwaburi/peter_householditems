@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import NavBar from "./NavBar";
-import BeautifulFooter from "./footer";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
@@ -78,7 +76,6 @@ const ProductsAndServices = () => {
 
     return (
         <div>
-            <NavBar />
             <Container className="mt-4">
                 {loading && <LoadingSpinner message={loading} />}
                 
@@ -150,9 +147,9 @@ const ProductsAndServices = () => {
                     </Row>
                 </div>
             </Container>
-            <BeautifulFooter />
-        </div>
+            </div>
     );
 };
 
 export default ProductsAndServices;
+
