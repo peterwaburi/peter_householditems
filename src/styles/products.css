@@ -1,0 +1,34 @@
+.product-card{
+    border-radius:18px;
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(0,0,0,.15)!important;
+}
+
+.product-card img{
+    height:220px;
+    object-fit:cover;
+}
+
+.product-card .btn{
+    width:100%;
+    border-radius:30px;
+}
+
+.modal-content{
+    border-radius:20px;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#0F4C81;
+    box-shadow:none;
+}

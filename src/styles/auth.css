@@ -1,0 +1,15 @@
+.auth-page{
+    background:#f5f7fb;
+}
+
+.auth-page .card{
+    border-radius:20px;
+}
+
+.auth-page .btn{
+    border-radius:30px;
+}
+
+.auth-page .form-control{
+    border-radius:12px;
+}

@@ -32,6 +32,23 @@ import WorkerNotifications from "./pages/worker/WorkerNotifications";
 import WorkerProfile from "./pages/worker/WorkerProfile";
 import AssignedJobs from "./pages/worker/AssignedJobs";
 import JobDetails from "./pages/worker/JobDetails";
+import ManageOrders from "./pages/manager/ManageOrders";
+import ManageProducts from "./pages/manager/ManageProducts";
+import ManageServices from "./pages/manager/ManageServices";
+import Finance from "./pages/manager/Finance";
+import ManageCustomers from "./pages/manager/ManageCustomers";
+import ManageWorkers from "./pages/manager/ManageWorkers";
+import Reports from "./pages/manager/Reports";
+import Analytics from "./pages/manager/Analytics";
+import Complaints from "./pages/manager/Complaints";
+import Suggestions from "./pages/manager/Suggestions";
+import Messages from "./pages/manager/Messages";
+import SocialMedia from "./pages/manager/SocialMedia";
+import Packages from "./pages/public/Packages";
+import Checkout from "./pages/customer/Checkout";
+import PaymentSuccess from "./pages/customer/PaymentSuccess";
+import PaymentFailed from "./pages/customer/PaymentFailed";
+import BookingSuccess from "./pages/customer/BookingSuccess";
 
 function App() {
   return (
@@ -52,6 +69,7 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/packages" element={<Packages />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
@@ -70,6 +88,10 @@ function App() {
             <Route path="/customer/reviews" element={<CustomerReviews />} />
             <Route path="/customer/settings" element={<CustomerSettings />} />
             <Route path="/customer/vehicles" element={<CustomerVehicles />} />
+            <Route path="/customer/checkout" element={<Checkout />} />
+            <Route path="/customer/payment-success" element={<PaymentSuccess />} />
+            <Route path="/customer/payment-failed" element={<PaymentFailed />} />
+            <Route path="/customer/booking-success" element={<BookingSuccess />} />
           </Route>
 
           <Route element={<WorkerLayout />}>
@@ -81,7 +103,18 @@ function App() {
           </Route>
 
           <Route element={<ManagerLayout />}>
-            {/* Manager routes will go here */}
+            <Route path="/manager/orders" element={<ManageOrders />} />
+            <Route path="/manager/products" element={<ManageProducts />} />
+            <Route path="/manager/services" element={<ManageServices />} />
+            <Route path="/manager/finance" element={<Finance />} />
+            <Route path="/manager/customers" element={<ManageCustomers />} />
+            <Route path="/manager/workers" element={<ManageWorkers />} />
+            <Route path="/manager/reports" element={<Reports />} />
+            <Route path="/manager/analytics" element={<Analytics />} />
+            <Route path="/manager/complaints" element={<Complaints />} />
+            <Route path="/manager/suggestions" element={<Suggestions />} />
+            <Route path="/manager/messages" element={<Messages />} />
+            <Route path="/manager/social-media" element={<SocialMedia />} />
           </Route>
 
 

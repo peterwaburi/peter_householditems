@@ -1,0 +1,25 @@
+.card{
+
+    border-radius:20px;
+
+}
+
+.btn{
+
+    border-radius:30px;
+
+}
+
+.form-control{
+
+    border-radius:12px;
+
+}
+
+.form-control:focus{
+
+    box-shadow:none;
+
+    border-color:#0F4C81;
+
+}

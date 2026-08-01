@@ -1,0 +1,12 @@
+.card{
+    border-radius:20px;
+}
+
+.card h1{
+    font-weight:700;
+}
+
+.btn{
+    border-radius:30px;
+    padding:10px 30px;
+}
