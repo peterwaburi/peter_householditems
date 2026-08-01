@@ -1,13 +1,15 @@
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import WorkerProfileCard from "../../components/WorkerProfileCard";
+import ProfileCard from "../../components/ProfileCard";
 
-function WorkerProfile() {
+function CustomerSettings() {
 
-    const worker = {
-        name: "John Kamau",
-        position: "Senior Detailer",
+    const user = {
+        name: "Peter Waburi",
+        email: "peter@gmail.com",
         phone: "0712345678",
-        email: "john@bluewave.com"
+        vehicles: 2,
+        bookings: 12,
+        points: 320
     };
 
     return (
@@ -16,31 +18,48 @@ function WorkerProfile() {
 
             <Row>
 
-                <Col lg={4}>
-                    <WorkerProfileCard worker={worker}/>
+                <Col lg={4} className="mb-4">
+
+                    <ProfileCard user={user} />
+
                 </Col>
 
                 <Col lg={8}>
 
-                    <h2 className="fw-bold text-primary mb-4">
-                        Worker Profile
+                    <h2 className="text-primary fw-bold mb-4">
+                        Account Settings
                     </h2>
 
                     <Form>
 
                         <Form.Group className="mb-3">
+
                             <Form.Label>Full Name</Form.Label>
-                            <Form.Control defaultValue={worker.name}/>
+
+                            <Form.Control
+                                defaultValue={user.name}
+                            />
+
                         </Form.Group>
 
                         <Form.Group className="mb-3">
+
                             <Form.Label>Email</Form.Label>
-                            <Form.Control defaultValue={worker.email}/>
+
+                            <Form.Control
+                                defaultValue={user.email}
+                            />
+
                         </Form.Group>
 
                         <Form.Group className="mb-3">
+
                             <Form.Label>Phone</Form.Label>
-                            <Form.Control defaultValue={worker.phone}/>
+
+                            <Form.Control
+                                defaultValue={user.phone}
+                            />
+
                         </Form.Group>
 
                         <Button variant="primary">
@@ -59,4 +78,4 @@ function WorkerProfile() {
 
 }
 
-export default WorkerProfile;
+export default CustomerSettings;

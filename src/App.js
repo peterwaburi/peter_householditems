@@ -22,6 +22,16 @@ import ManagerLayout from "./layouts/ManagerLayout";
 import Shop from './components/Shop';
 import Services from "./components/Services";
 import NavBar from './components/layout/NavBar';
+import CustomerOrders from "./pages/customer/CustomerOrders";
+import CustomerNotifications from "./pages/customer/CustomerNotifications";
+import CustomerReviews from "./pages/customer/CustomerReviews";
+import CustomerSettings from "./pages/customer/CustomerSettings";
+import CustomerVehicles from "./pages/customer/CustomerVehicles";
+import WorkerHistory from "./pages/worker/WorkerHistory";
+import WorkerNotifications from "./pages/worker/WorkerNotifications";
+import WorkerProfile from "./pages/worker/WorkerProfile";
+import AssignedJobs from "./pages/worker/AssignedJobs";
+import JobDetails from "./pages/worker/JobDetails";
 
 function App() {
   return (
@@ -29,7 +39,7 @@ function App() {
     <div className="container-fluid">
       <div className="App">
 
-       
+
 
 
         <TopBar />
@@ -55,10 +65,19 @@ function App() {
           <Route element={<CustomerLayout />}>
             <Route path="/customer/dashboard" element={<CustomerDashboard />} />
             <Route path="/customer/book" element={<BookService />} />
+            <Route path="/customer/orders" element={<CustomerOrders />} />
+            <Route path="/customer/notifications" element={<CustomerNotifications />} />
+            <Route path="/customer/reviews" element={<CustomerReviews />} />
+            <Route path="/customer/settings" element={<CustomerSettings />} />
+            <Route path="/customer/vehicles" element={<CustomerVehicles />} />
           </Route>
 
           <Route element={<WorkerLayout />}>
-            {/* Worker routes will go here */}
+            <Route path="/worker/jobs" element={<AssignedJobs />} />
+            <Route path="/worker/job/:id" element={<JobDetails />} />
+            <Route path="/worker/history" element={<WorkerHistory />} />
+            <Route path="/worker/notifications" element={<WorkerNotifications />} />
+            <Route path="/worker/profile" element={<WorkerProfile />} />
           </Route>
 
           <Route element={<ManagerLayout />}>

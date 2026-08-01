@@ -1,0 +1,37 @@
+.order-card,
+.vehicle-card,
+.review-card,
+.notification-card,
+.profile-card{
+    border-radius:18px;
+}
+
+.card{
+    border-radius:18px;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+img{
+    object-fit:cover;
+}
+
+.badge{
+    font-size:.8rem;
+}
+
+.form-control{
+    border-radius:12px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#0F4C81;
+}
