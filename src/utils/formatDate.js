@@ -1,0 +1,19 @@
+export default function formatDate(date) {
+
+    return new Date(date).toLocaleDateString(
+
+        "en-KE",
+
+        {
+
+            day: "2-digit",
+
+            month: "short",
+
+            year: "numeric"
+
+        }
+
+    );
+
+}

@@ -1,0 +1,21 @@
+.card{
+    border-radius:20px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12)!important;
+}
+
+.table{
+    margin-bottom:0;
+}
+
+.badge{
+    border-radius:20px;
+}
+
+.btn{
+    border-radius:30px;
+}

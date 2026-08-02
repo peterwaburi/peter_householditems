@@ -1,0 +1,27 @@
+.modal-content{
+    border-radius:20px;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+.table td,
+.table th{
+    vertical-align:middle;
+}
+
+.card{
+    border-radius:20px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12)!important;
+}

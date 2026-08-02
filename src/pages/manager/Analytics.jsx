@@ -1,9 +1,9 @@
-import { Container, Row, Col } from "react-bootstrap";
-import RevenueCard from "../../components/RevenueCard";
+import { Container } from "react-bootstrap";
+import AnalyticsCards from "../../components/AnalyticsCards";
 
-function Analytics(){
+function Analytics() {
 
-    return(
+    return (
 
         <Container className="py-5">
 
@@ -11,37 +11,7 @@ function Analytics(){
                 Analytics
             </h2>
 
-            <Row>
-
-                <Col md={3} className="mb-4">
-                    <RevenueCard
-                        title="Customers"
-                        amount="1,248"
-                    />
-                </Col>
-
-                <Col md={3} className="mb-4">
-                    <RevenueCard
-                        title="Bookings"
-                        amount="356"
-                    />
-                </Col>
-
-                <Col md={3} className="mb-4">
-                    <RevenueCard
-                        title="Workers"
-                        amount="18"
-                    />
-                </Col>
-
-                <Col md={3} className="mb-4">
-                    <RevenueCard
-                        title="Revenue"
-                        amount="KES 975K"
-                    />
-                </Col>
-
-            </Row>
+            <AnalyticsCards />
 
         </Container>
 

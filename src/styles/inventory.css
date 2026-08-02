@@ -1,0 +1,20 @@
+.card{
+    border-radius:20px;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    transition:.3s;
+}
+
+.table{
+    margin-bottom:0;
+}
+
+.badge{
+    border-radius:20px;
+}
+
+.btn{
+    border-radius:30px;
+}

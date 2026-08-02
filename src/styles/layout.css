@@ -1,0 +1,44 @@
+.dashboard-layout{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    background:#f4f7fb;
+
+}
+
+.dashboard-content{
+
+    flex:1;
+
+    padding:30px;
+
+}
+
+.card{
+
+    border-radius:18px;
+
+}
+
+.table{
+
+    background:#fff;
+
+}
+
+.btn{
+
+    border-radius:30px;
+
+}
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+}

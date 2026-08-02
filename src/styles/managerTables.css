@@ -1,0 +1,38 @@
+.card{
+    border-radius:20px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 35px rgba(0,0,0,.12)!important;
+}
+
+.table{
+    margin-bottom:0;
+}
+
+.table th{
+    font-weight:700;
+}
+
+.table td,
+.table th{
+    vertical-align:middle;
+}
+
+.badge{
+    border-radius:20px;
+}
+
+.btn{
+    border-radius:30px;
+}
+
+.progress{
+    height:12px;
+}
+
+.progress-bar{
+    background:#0F4C81;
+}
