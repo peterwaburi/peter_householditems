@@ -16,7 +16,7 @@ function NavBar() {
     >
       <Container>
 
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand>
           <BrandLogo />
         </Navbar.Brand>
 

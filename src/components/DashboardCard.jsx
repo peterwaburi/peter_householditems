@@ -1,25 +1,50 @@
 import { Card } from "react-bootstrap";
 
-function DashboardCard({ title, value, icon, color }) {
+const DashboardCard = ({
+    title,
+    value,
+    icon,
+    color = "#0F4C81"
+}) => {
+
     return (
-        <Card className="dashboard-card border-0 shadow-sm h-100">
-            <Card.Body className="d-flex justify-content-between align-items-center">
+        <Card
+            className="border-0 shadow-sm h-100"
+        >
 
-                <div>
-                    <h6 className="text-muted">{title}</h6>
-                    <h2 className="fw-bold">{value}</h2>
-                </div>
+            <Card.Body>
 
-                <div
-                    className="dashboard-icon"
-                    style={{ background: color }}
-                >
-                    {icon}
+                <div className="d-flex align-items-center justify-content-between">
+
+                    <div>
+
+                        <p className="text-muted mb-1">
+                            {title}
+                        </p>
+
+                        <h3 className="fw-bold mb-0">
+                            {value}
+                        </h3>
+
+                    </div>
+
+                    <div
+                        className="d-flex align-items-center justify-content-center rounded-circle"
+                        style={{
+                            width: "50px",
+                            height: "50px",
+                            backgroundColor: color
+                        }}
+                    >
+                        {icon}
+                    </div>
+
                 </div>
 
             </Card.Body>
+
         </Card>
     );
-}
+};
 
 export default DashboardCard;

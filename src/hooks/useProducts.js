@@ -1,29 +1,113 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
+import {
+    useCallback,
+    useEffect,
+    useState
+} from "react";
 
-export default function useProducts() {
+import {
+    getProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct
+} from "../api/product";
 
-    const [products, setProducts] = useState([]);
+const useProducts = () => {
 
-    useEffect(() => {
+    const [products, setProducts] =
+        useState([]);
 
-        load();
+    const [loading, setLoading] =
+        useState(true);
 
-    }, []);
+    const [error, setError] =
+        useState("");
 
-    async function load() {
+    const loadProducts = useCallback(
+        async () => {
 
-        const response = await getProducts();
+            setLoading(true);
+            setError("");
 
-        setProducts(response.data);
+            try {
 
-    }
+                const response =
+                    await getProducts();
 
-    return {
+                const data =
+                    response.data?.data ??
+                    response.data?.products ??
+                    response.data ??
+                    [];
 
-        products,
-        reload: load
+                setProducts(
+                    Array.isArray(data)
+                        ? data
+                        : []
+                );
+
+            } catch (err) {
+
+                setError(
+                    err.response?.data?.message ||
+                    err.message ||
+                    "Unable to load products."
+                );
+
+            } finally {
+
+                setLoading(false);
+
+            }
+
+        },
+        []
+    );
+
+    const addProduct = async (data) => {
+
+        await createProduct(data);
+
+        await loadProducts();
 
     };
 
-}
+    const editProduct = async (
+        id,
+        data
+    ) => {
+
+        await updateProduct(
+            id,
+            data
+        );
+
+        await loadProducts();
+
+    };
+
+    const removeProduct = async (id) => {
+
+        await deleteProduct(id);
+
+        await loadProducts();
+
+    };
+
+    useEffect(() => {
+
+        loadProducts();
+
+    }, [loadProducts]);
+
+    return {
+        products,
+        loading,
+        error,
+        refresh: loadProducts,
+        addProduct,
+        editProduct,
+        removeProduct
+    };
+};
+
+export default useProducts;

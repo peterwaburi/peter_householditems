@@ -1,31 +1,91 @@
-import { useState } from "react";
+import {
+    useCallback,
+    useEffect,
+    useState
+} from "react";
 
-export default function useAuth() {
+import {
+    getUser,
+    getToken,
+    isAuthenticated,
+    logout
+} from "../utils/auth";
 
-    const [user, setUser] = useState(null);
+const useAuth = () => {
 
-    const login = (data) => {
+    const [user, setUser] = useState(
+        getUser()
+    );
 
-        localStorage.setItem("user", JSON.stringify(data));
+    const [token, setToken] = useState(
+        getToken()
+    );
 
-        setUser(data);
+    const [authenticated, setAuthenticated] =
+        useState(
+            isAuthenticated()
+        );
 
-    };
+    const refreshAuth = useCallback(() => {
 
-    const logout = () => {
+        setUser(getUser());
 
-        localStorage.removeItem("user");
+        setToken(getToken());
+
+        setAuthenticated(
+            isAuthenticated()
+        );
+
+    }, []);
+
+    useEffect(() => {
+
+        window.addEventListener(
+            "userLoggedIn",
+            refreshAuth
+        );
+
+        window.addEventListener(
+            "userLoggedOut",
+            refreshAuth
+        );
+
+        return () => {
+
+            window.removeEventListener(
+                "userLoggedIn",
+                refreshAuth
+            );
+
+            window.removeEventListener(
+                "userLoggedOut",
+                refreshAuth
+            );
+
+        };
+
+    }, [refreshAuth]);
+
+    const signOut = useCallback(() => {
+
+        logout();
 
         setUser(null);
 
-    };
+        setToken(null);
+
+        setAuthenticated(false);
+
+    }, []);
 
     return {
-
         user,
-        login,
-        logout
-
+        token,
+        authenticated,
+        isAuthenticated: authenticated,
+        refreshAuth,
+        logout: signOut
     };
+};
 
-}
+export default useAuth;

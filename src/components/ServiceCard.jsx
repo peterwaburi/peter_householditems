@@ -1,50 +1,94 @@
-import { Card, Button, Badge } from "react-bootstrap";
+import {
+    Card,
+    Button,
+    Badge
+} from "react-bootstrap";
 
-function ServiceCard({
-    image,
-    title,
-    price,
-    duration,
-    description
-}) {
+import {
+    Link
+} from "react-router-dom";
+
+const ServiceCard = ({ service }) => {
+
+    const id =
+        service?.id ??
+        service?.service_id;
+
+    const name =
+        service?.service_name ??
+        service?.name ??
+        service?.title ??
+        "Car Wash Service";
+
+    const description =
+        service?.description ??
+        "Professional car wash and AutoSpa service.";
+
+    const price = Number(
+        service?.service_cost ??
+        service?.price ??
+        service?.cost ??
+        0
+    );
+
+    const duration =
+        service?.duration ??
+        service?.duration_minutes;
+
     return (
-        <Card className="shadow-sm border-0 h-100 service-card">
+        <Card className="border-0 shadow-sm h-100">
 
-            <Card.Img
-                variant="top"
-                src={image}
-                style={{ height: "220px", objectFit: "cover" }}
-            />
+            <Card.Body className="d-flex flex-column">
 
-            <Card.Body>
+                <div className="d-flex justify-content-between align-items-start mb-2">
 
-                <Card.Title>{title}</Card.Title>
+                    <Card.Title className="fw-bold">
+                        {name}
+                    </Card.Title>
 
-                <div className="mb-3">
-
-                    <Badge bg="primary" className="me-2">
-                        {price}
-                    </Badge>
-
-                    <Badge bg="secondary">
-                        {duration}
+                    <Badge bg="primary">
+                        Service
                     </Badge>
 
                 </div>
 
-                <Card.Text>
+                <Card.Text className="text-muted">
                     {description}
                 </Card.Text>
 
-                <div className="d-flex gap-2">
+                {duration && (
+                    <small className="text-muted mb-2">
+                        Duration: {duration}
+                        {typeof duration === "number"
+                            ? " minutes"
+                            : ""}
+                    </small>
+                )}
 
-                    <Button variant="primary">
-                        Book Service
-                    </Button>
+                <div className="mt-auto">
 
-                    <Button variant="outline-primary">
-                        Learn More
-                    </Button>
+                    <h5 className="fw-bold text-primary mb-3">
+                        KES {price.toLocaleString()}
+                    </h5>
+
+                    {id ? (
+                        <Button
+                            as={Link}
+                            to={`/book-service?service=${id}`}
+                            variant="primary"
+                            className="w-100"
+                        >
+                            Book This Service
+                        </Button>
+                    ) : (
+                        <Button
+                            variant="primary"
+                            className="w-100"
+                            disabled
+                        >
+                            Book Service
+                        </Button>
+                    )}
 
                 </div>
 
@@ -52,6 +96,6 @@ function ServiceCard({
 
         </Card>
     );
-}
+};
 
 export default ServiceCard;

@@ -1,37 +1,22 @@
-import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
+import { Spinner } from "react-bootstrap";
 
 const LoadingSpinner = ({
-    message = "Loading, please wait..."
+    message = "Loading..."
 }) => {
+
     return (
-        <Container
-            className="d-flex flex-column justify-content-center align-items-center py-5"
-            style={{ minHeight: "250px" }}
-        >
+        <div className="d-flex flex-column align-items-center justify-content-center py-4">
+
             <Spinner
                 animation="border"
-                variant="primary"
-                style={{
-                    width: "4rem",
-                    height: "4rem"
-                }}
+                role="status"
             />
 
-            <h5
-                className="mt-4"
-                style={{
-                    color: "#3282B8",
-                    fontWeight: "600"
-                }}
-            >
+            <span className="mt-2 text-muted">
                 {message}
-            </h5>
+            </span>
 
-            <p className="text-muted">
-                Please wait while we fetch the latest products...
-            </p>
-        </Container>
+        </div>
     );
 };
 

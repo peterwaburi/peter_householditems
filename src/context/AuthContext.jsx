@@ -1,43 +1,93 @@
-import { createContext, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState
+} from "react";
 
-export const AuthContext = createContext();
+import {
+    getUser,
+    isLoggedIn,
+    logout as clearAuthentication
+} from "../utils/auth";
 
-function AuthProvider({ children }) {
+const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(
-
-        JSON.parse(localStorage.getItem("user"))
-
+        getUser()
     );
 
-    const login = (data) => {
+    const [authenticated, setAuthenticated] =
+        useState(
+            isAuthenticated()
+        );
 
-        localStorage.setItem("user", JSON.stringify(data));
+    useEffect(() => {
 
-        setUser(data);
+        const handleLogin = () => {
 
-    };
+            setUser(getUser());
+
+            setAuthenticated(
+                isAuthenticated()
+            );
+
+        };
+
+        const handleLogout = () => {
+
+            setUser(null);
+
+            setAuthenticated(false);
+
+        };
+
+        window.addEventListener(
+            "userLoggedIn",
+            handleLogin
+        );
+
+        window.addEventListener(
+            "userLoggedOut",
+            handleLogout
+        );
+
+        return () => {
+
+            window.removeEventListener(
+                "userLoggedIn",
+                handleLogin
+            );
+
+            window.removeEventListener(
+                "userLoggedOut",
+                handleLogout
+            );
+
+        };
+
+    }, []);
 
     const logout = () => {
 
-        localStorage.removeItem("user");
+        clearAuthentication();
 
         setUser(null);
+
+        setAuthenticated(false);
 
     };
 
     return (
 
         <AuthContext.Provider
-
             value={{
-
                 user,
-                login,
+                authenticated,
                 logout
-
             }}
-
         >
 
             {children}
@@ -46,6 +96,12 @@ function AuthProvider({ children }) {
 
     );
 
-}
+};
 
-export default AuthProvider;
+export const useAuth = () => {
+
+    return useContext(AuthContext);
+
+};
+
+export default AuthContext;

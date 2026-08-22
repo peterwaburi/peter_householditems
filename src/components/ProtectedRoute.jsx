@@ -1,32 +1,30 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import {
+    isAuthenticated,
+    getUserRole
+} from "../utils/auth";
 
-function ProtectedRoute({
+const ProtectedRoute = ({ roles = [] }) => {
 
-    children,
-    role
+    if (!isAuthenticated()) {
+        return <Navigate to="/signin" replace />;
+    }
 
-}) {
+    if (roles.length === 0) {
+        return <Outlet />;
+    }
 
-    const user = JSON.parse(
+    const role = getUserRole();
 
-        localStorage.getItem("user")
-
+    const allowedRoles = roles.map(
+        (item) => String(item).toLowerCase()
     );
 
-    if (!user) {
-
-        return <Navigate to="/signin" replace />;
-
-    }
-
-    if (role && user.role !== role) {
-
+    if (!allowedRoles.includes(role)) {
         return <Navigate to="/" replace />;
-
     }
 
-    return children;
-
-}
+    return <Outlet />;
+};
 
 export default ProtectedRoute;

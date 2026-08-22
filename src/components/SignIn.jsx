@@ -1,147 +1,267 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import LoadingSpinner from "./LoadingSpinner";
+
+import { login } from "../api/auth";
 
 const SignIn = () => {
 
-    let [email, updateEmail] = useState("");
-    let [password, updatePassword] = useState("");
+    const navigate = useNavigate();
 
-    let [loading, setLoading] = useState("");
-    let [success, setSuccess] = useState("");
-    let [error, setError] = useState("");
+    const [email, setEmail] = useState("");
+
+    const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState("");
+
+    const [success, setSuccess] = useState("");
+
+    const [error, setError] = useState("");
+
     const [showPassword, setShowPassword] = useState(false);
 
-    let navigate = useNavigate();
-
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
-        console.log(email, password);
+        setLoading("Signing in...");
 
-        setLoading("Please Wait...");
-        setSuccess("");
         setError("");
+
+        setSuccess("");
 
         try {
 
-            const user_data = new FormData();
-            user_data.append("email", email);
-            user_data.append("password", password);
+            const response = await login({
 
-            const response = await axios.post(
-                "https://peter511.alwaysdata.net/api/signin",
-                user_data
-            );
+                email,
 
-            console.log(response);
+                password
 
-            if (response.status === 200) {
-                console.log("Full response data:", response.data);
-                if (response.data.user) {
-                    console.log("User object being stored:", response.data.user);
-                    // ✅ STORE USER (important for TopBar greeting)
-                    localStorage.setItem(
-                        "user",
-                        JSON.stringify(response.data.user)
-                    );
+            });
 
-                    setSuccess(response.data.message);
-                    setLoading("");
+            const data = response.data;
 
-                    // Notify other components (TopBar)
-                    window.dispatchEvent(new Event("userLoggedIn"));
+            if (data.token) {
 
-                    // redirect home
-                    navigate("/");
-                } else {
-                    console.log("No user data in response");
-                    setError("Login failed: No user data returned");
-                    setLoading("");
-                }
-            } else {
-                setError("Login failed: Invalid response");
-                setLoading("");
+                localStorage.setItem(
+
+                    "token",
+
+                    data.token
+
+                );
+
             }
 
-        } catch (error) {
-            console.log(error);
-            setError(error?.response?.data?.message || error.message);
+            if (data.user) {
+
+                localStorage.setItem(
+
+                    "user",
+
+                    JSON.stringify(data.user)
+
+                );
+
+            }
+
+            window.dispatchEvent(
+
+                new Event("userLoggedIn")
+
+            );
+
             setLoading("");
+
+            setSuccess("Login successful.");
+
+            navigate("/");
+
         }
+
+        catch (err) {
+
+            setLoading("");
+
+            setError(
+
+                err.response?.data?.message ||
+
+                "Login failed."
+
+            );
+
+        }
+
     };
 
     return (
-        <div className="row justify-content-center mt-4">
 
-            
+        <div className="row justify-content-center mt-4">
 
             <div className="col-md-6 card shadow p-4">
 
-                <h2 style={{ color: '#0F4C75', fontWeight: '700' }}>Sign In</h2>
+                <h2 style={{ color: "#0F4C75", fontWeight: "700" }}>
 
-                {loading && <LoadingSpinner message={loading} />}
-                <h5 style={{ color: '#DC3545' }}>{error}</h5>
-                <h5 style={{ color: '#28A745' }}>{success}</h5>
+                    Sign In
+
+                </h2>
+
+                {loading && (
+
+                    <LoadingSpinner
+
+                        message={loading}
+
+                    />
+
+                )}
+
+                <h5 className="text-danger">
+
+                    {error}
+
+                </h5>
+
+                <h5 className="text-success">
+
+                    {success}
+
+                </h5>
 
                 <form onSubmit={handleSubmit}>
 
                     <input
-                        type="email"
+
                         className="form-control"
-                        placeholder="Enter email"
-                        required
-                        onChange={(e) => updateEmail(e.target.value)}
+
+                        type="email"
+
+                        placeholder="Email"
+
                         value={email}
+
+                        onChange={(e) =>
+
+                            setEmail(
+
+                                e.target.value
+
+                            )
+
+                        }
+
+                        required
+
                     />
+
                     <br />
 
                     <div style={{ position: "relative" }}>
+
                         <input
-                            type={showPassword ? "text" : "password"}
+
                             className="form-control"
-                            placeholder="Enter your password"
-                            required
-                            onChange={(e) => updatePassword(e.target.value)}
+
+                            type={
+
+                                showPassword
+
+                                    ? "text"
+
+                                    : "password"
+
+                            }
+
+                            placeholder="Password"
+
                             value={password}
-                            style={{ paddingRight: "40px" }}
+
+                            onChange={(e) =>
+
+                                setPassword(
+
+                                    e.target.value
+
+                                )
+
+                            }
+
+                            required
+
                         />
+
                         <span
-                            onClick={() => setShowPassword(!showPassword)}
+
+                            onClick={() =>
+
+                                setShowPassword(
+
+                                    !showPassword
+
+                                )
+
+                            }
+
                             style={{
+
                                 position: "absolute",
-                                right: "12px",
-                                top: "18px",
-                                cursor: "pointer",
-                                color: "#555",
-                                zIndex: "10"
+
+                                right: "15px",
+
+                                top: "12px",
+
+                                cursor: "pointer"
+
                             }}
+
                         >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+
+                            {showPassword
+
+                                ? <FaEyeSlash />
+
+                                : <FaEye />}
+
                         </span>
+
                     </div>
+
                     <br />
 
-                    <button 
-                        className="btn"
-                        style={{ backgroundColor: '#1B262C', borderColor: '#1B262C', color: '#FFFFFF' }}
+                    <button
+
+                        className="btn btn-dark w-100"
+
                     >
+
                         Sign In
+
                     </button>
 
-                    <br /><br />
+                    <br />
+
+                    <br />
 
                     <Link to="/signup">
-                        Dont have an account? Sign Up
+
+                        Don't have an account?
+
+                        Sign Up
+
                     </Link>
 
                 </form>
 
             </div>
+
         </div>
+
     );
+
 };
 
 export default SignIn;

@@ -1,155 +1,390 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import axios from "axios";
+import {
+    Container,
+    Row,
+    Col,
+    Card
+} from "react-bootstrap";
+
 import LoadingSpinner from "./LoadingSpinner";
+import { getProducts } from "../api/products";
 
 const ProductsAndServices = () => {
 
-    let [products, setProducts] = useState([]);
-    let [loading, setLoading] = useState("");
-    let [error, setError] = useState("");
-    let [cart, setCart] = useState([]);
-
-    const img_url = "https://peter511.alwaysdata.net/static/images/";
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState("");
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
     const addToCart = (product) => {
-        const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
-        
-        // Use product name as unique identifier if ID is not available
-        const uniqueIdentifier = product.id || product.product_name;
-        
-        // Check if product already exists in cart
-        const existingItemIndex = currentCart.findIndex(item => {
-            const itemIdentifier = item.id || item.product_name;
-            return itemIdentifier === uniqueIdentifier;
-        });
-        
-        if (existingItemIndex !== -1) {
-            // Update quantity if item exists
-            currentCart[existingItemIndex].quantity = (currentCart[existingItemIndex].quantity || 1) + 1;
+
+        const currentCart = JSON.parse(
+            localStorage.getItem("cart") || "[]"
+        );
+
+        const identifier =
+            product.id || product.product_name;
+
+        const existingIndex = currentCart.findIndex(
+            (item) =>
+                (item.id || item.product_name) ===
+                identifier
+        );
+
+        if (existingIndex !== -1) {
+
+            currentCart[existingIndex].quantity =
+                (currentCart[existingIndex].quantity || 1) + 1;
+
         } else {
-            // Add new item with quantity 1
-            currentCart.push({ ...product, quantity: 1 });
-        }
-        
-        setCart(currentCart);
-        localStorage.setItem('cart', JSON.stringify(currentCart));
-        window.dispatchEvent(new Event('cartUpdated'));
-    };
 
-    const getProducts = async () => {
-        setError("");
-        setLoading("Fetching products please wait...");
+            currentCart.push({
+                ...product,
+                quantity: 1
+            });
 
-        try {
-            const response = await axios.get(
-                "https://peter511.alwaysdata.net/api/get_products"
-            );
-            setProducts(response.data);
-            setLoading("");
-        } catch (error) {
-            setLoading("");
-            setError(error.message);
         }
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(currentCart)
+        );
+
+        window.dispatchEvent(
+            new Event("cartUpdated")
+        );
+
     };
 
     useEffect(() => {
-        getProducts();
+
+        const loadProducts = async () => {
+
+            setLoading(
+                "Fetching products please wait..."
+            );
+
+            setError("");
+
+            try {
+
+                const response = await getProducts();
+
+                const data =
+                    response.data?.data ??
+                    response.data?.products ??
+                    response.data ??
+                    [];
+
+                setProducts(
+                    Array.isArray(data)
+                        ? data
+                        : []
+                );
+
+            } catch (err) {
+
+                setError(
+                    err.response?.data?.message ||
+                    err.message ||
+                    "Unable to load products."
+                );
+
+            } finally {
+
+                setLoading("");
+
+            }
+
+        };
+
+        loadProducts();
+
     }, []);
 
-    const groupByCategory = (products) => {
-        return products.reduce((acc, product) => {
-            const category = product.product_cartegory || 'General';
-            if (!acc[category]) {
-                acc[category] = [];
-            }
-            acc[category].push(product);
-            return acc;
-        }, {});
+    const groupByCategory = (items) => {
+
+        return items.reduce(
+            (accumulator, product) => {
+
+                const category =
+                    product.product_cartegory ||
+                    product.category ||
+                    "General";
+
+                if (!accumulator[category]) {
+
+                    accumulator[category] = [];
+
+                }
+
+                accumulator[category].push(product);
+
+                return accumulator;
+
+            },
+            {}
+        );
+
     };
 
-    const groupedProducts = groupByCategory(products);
+    const groupedProducts =
+        groupByCategory(products);
 
     return (
+
         <div>
+
             <Container className="mt-4">
-                {loading && <LoadingSpinner message={loading} />}
-                
+
+                {loading && (
+                    <LoadingSpinner
+                        message={loading}
+                    />
+                )}
+
+                {error && (
+
+                    <div className="alert alert-danger">
+
+                        {error}
+
+                    </div>
+
+                )}
+
+                {!loading &&
+                    !error &&
+                    products.length === 0 && (
+
+                        <div className="alert alert-info">
+
+                            No products available.
+
+                        </div>
+
+                    )}
 
                 <div className="mb-5">
-                    <Row>
-                        {groupedProducts && Object.keys(groupedProducts).length > 0 && (
-                            Object.keys(groupedProducts).map((category) => (
-                                <div key={category} className="mb-4">
-                                    <h4 className="p-2 text-center rounded" style={{ backgroundColor: '#3282B8', color: '#FFFFFF', fontWeight: '700' }}>
-                                        {category}
-                                    </h4>
-                                    <Row className="mt-3">
-                                        {groupedProducts[category].map((product, index) => (
-                                            <Col md={3} sm={6} xs={12} key={product.id || index} className="mb-3">
-                                                <Card className="shadow product-card h-100">
-                                                    <Card.Img
-                                                        variant="top"
-                                                        src={img_url + product.product_image}
-                                                        style={{ height: "200px", objectFit: "cover" }}
-                                                    />
-                                                    <Card.Body>
-                                                        <h5>{product.product_name}</h5>
-                                                        <p className="text-muted">
-                                                            {product.product_description}
-                                                        </p>
-                                                        <b style={{ color: '#FFC107' }}>
-                                                            Ksh {product.product_cost}
-                                                        </b>
-                                                        <br /><br />
-                                                        
-                                                        <div className="d-flex align-items-center gap-2">
-                                                            <button
-                                                                className="btn btn-sm flex-grow-1"
-                                                                style={{ backgroundColor: '#1B262C', borderColor: '#1B262C', color: '#FFFFFF' }}
-                                                                onClick={() => navigate("/mpesa", { state: { product } })}
-                                                            >
-                                                                Purchase Now
-                                                            </button>
-                                                            <button
-                                                                className="btn"
+
+                    {Object.keys(groupedProducts).map(
+                        (category) => (
+
+                            <div
+                                key={category}
+                                className="mb-4"
+                            >
+
+                                <h4
+                                    className="p-2 text-center rounded"
+                                    style={{
+                                        backgroundColor:
+                                            "#3282B8",
+                                        color:
+                                            "#FFFFFF",
+                                        fontWeight:
+                                            "700"
+                                    }}
+                                >
+
+                                    {category}
+
+                                </h4>
+
+                                <Row className="mt-3">
+
+                                    {groupedProducts[
+                                        category
+                                    ].map(
+                                        (product, index) => {
+
+                                            const image =
+                                                product.product_image ||
+                                                product.image;
+
+                                            const imageUrl =
+                                                image
+                                                    ? image.startsWith(
+                                                        "http"
+                                                    )
+                                                        ? image
+                                                        : `http://127.0.0.1:5000/uploads/${image}`
+                                                    : "";
+
+                                            return (
+
+                                                <Col
+                                                    md={3}
+                                                    sm={6}
+                                                    xs={12}
+                                                    key={
+                                                        product.id ||
+                                                        index
+                                                    }
+                                                    className="mb-3"
+                                                >
+
+                                                    <Card className="shadow product-card h-100">
+
+                                                        {imageUrl && (
+
+                                                            <Card.Img
+                                                                variant="top"
+                                                                src={
+                                                                    imageUrl
+                                                                }
+                                                                alt={
+                                                                    product.product_name ||
+                                                                    product.name ||
+                                                                    "Product"
+                                                                }
                                                                 style={{
-                                                                    backgroundColor: '#3282B8',
-                                                                    borderColor: '#3282B8',
-                                                                    color: '#FFFFFF',
-                                                                    borderRadius: '50%',
-                                                                    width: '35px',
-                                                                    height: '35px',
-                                                                    padding: '0',
-                                                                    display: 'flex',
-                                                                    alignItems: 'center',
-                                                                    justifyContent: 'center',
-                                                                    fontSize: '14px'
+                                                                    height:
+                                                                        "200px",
+                                                                    objectFit:
+                                                                        "cover"
                                                                 }}
-                                                                onClick={() => addToCart(product)}
-                                                                title="Add to Cart"
+                                                            />
+
+                                                        )}
+
+                                                        <Card.Body>
+
+                                                            <h5>
+
+                                                                {
+                                                                    product.product_name ||
+                                                                    product.name
+                                                                }
+
+                                                            </h5>
+
+                                                            <p className="text-muted">
+
+                                                                {
+                                                                    product.product_description ||
+                                                                    product.description ||
+                                                                    ""
+                                                                }
+
+                                                            </p>
+
+                                                            <b
+                                                                style={{
+                                                                    color:
+                                                                        "#FFC107"
+                                                                }}
                                                             >
-                                                                <FaShoppingCart />
-                                                            </button>
-                                                        </div>
-                                                    </Card.Body>
-                                                </Card>
-                                            </Col>
-                                        ))}
-                                    </Row>
-                                </div>
-                            ))
-                        )}
-                    </Row>
+
+                                                                Ksh{" "}
+
+                                                                {
+                                                                    product.product_cost ??
+                                                                    product.price ??
+                                                                    0
+                                                                }
+
+                                                            </b>
+
+                                                            <br />
+                                                            <br />
+
+                                                            <div className="d-flex align-items-center gap-2">
+
+                                                                <button
+                                                                    className="btn btn-sm flex-grow-1"
+                                                                    style={{
+                                                                        backgroundColor:
+                                                                            "#1B262C",
+                                                                        borderColor:
+                                                                            "#1B262C",
+                                                                        color:
+                                                                            "#FFFFFF"
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        navigate(
+                                                                            "/mpesa",
+                                                                            {
+                                                                                state:
+                                                                                {
+                                                                                    product
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    }
+                                                                >
+
+                                                                    Purchase Now
+
+                                                                </button>
+
+                                                                <button
+                                                                    className="btn"
+                                                                    style={{
+                                                                        backgroundColor:
+                                                                            "#3282B8",
+                                                                        borderColor:
+                                                                            "#3282B8",
+                                                                        color:
+                                                                            "#FFFFFF",
+                                                                        borderRadius:
+                                                                            "50%",
+                                                                        width:
+                                                                            "35px",
+                                                                        height:
+                                                                            "35px",
+                                                                        padding:
+                                                                            "0",
+                                                                        display:
+                                                                            "flex",
+                                                                        alignItems:
+                                                                            "center",
+                                                                        justifyContent:
+                                                                            "center"
+                                                                    }}
+                                                                    onClick={() =>
+                                                                        addToCart(
+                                                                            product
+                                                                        )
+                                                                    }
+                                                                    title="Add to Cart"
+                                                                >
+
+                                                                    <FaShoppingCart />
+
+                                                                </button>
+
+                                                            </div>
+
+                                                        </Card.Body>
+
+                                                    </Card>
+
+                                                </Col>
+
+                                            );
+
+                                        }
+                                    )}
+
+                                </Row>
+
+                            </div>
+
+                        )
+                    )}
+
                 </div>
+
             </Container>
-            </div>
+
+        </div>
+
     );
+
 };
 
 export default ProductsAndServices;
-

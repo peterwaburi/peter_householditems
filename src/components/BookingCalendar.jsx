@@ -1,23 +1,32 @@
 import { Form } from "react-bootstrap";
 
-function BookingCalendar({ value, onChange }) {
+const BookingCalendar = ({
+    value,
+    onChange
+}) => {
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
 
     return (
-
         <Form.Group className="mb-3">
 
-            <Form.Label>Select Date</Form.Label>
+            <Form.Label>
+                Booking Date
+            </Form.Label>
 
             <Form.Control
                 type="date"
-                value={value}
+                value={value || ""}
+                min={today}
                 onChange={onChange}
+                required
             />
 
         </Form.Group>
-
     );
-
-}
+};
 
 export default BookingCalendar;

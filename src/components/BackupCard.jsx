@@ -1,42 +1,145 @@
-import { Card, Button } from "react-bootstrap";
+import {
+    Card,
+    Button,
+    Row,
+    Col
+} from "react-bootstrap";
 
-function BackupCard() {
+import {
+    Link
+} from "react-router-dom";
+
+import StatusBadge from "./StatusBadge";
+
+const BookingCard = ({
+    booking,
+    onCancel
+}) => {
+
+    const id =
+        booking?.id ??
+        booking?.booking_id;
+
+    const service =
+        booking?.service_name ??
+        booking?.service?.name ??
+        booking?.service ??
+        "Car Wash Service";
+
+    const date =
+        booking?.booking_date ??
+        booking?.date ??
+        "Not specified";
+
+    const time =
+        booking?.booking_time ??
+        booking?.time ??
+        "Not specified";
+
+    const vehicle =
+        booking?.vehicle_type ??
+        booking?.vehicle ??
+        "Not specified";
+
+    const status =
+        booking?.status ??
+        "Pending";
 
     return (
 
-        <Card className="shadow-sm border-0">
+        <Card className="border-0 shadow-sm h-100">
 
             <Card.Body>
 
-                <h4 className="mb-4">
-                    Backup & Restore
-                </h4>
+                <div className="d-flex justify-content-between align-items-start mb-3">
 
-                <p>
+                    <h5 className="fw-bold mb-0">
+                        {service}
+                    </h5>
 
-                    Last Backup:
-                    <strong> 01 Aug 2026 - 10:00 PM</strong>
+                    <StatusBadge
+                        status={status}
+                    />
 
-                </p>
+                </div>
 
-                <div className="d-grid gap-3">
+                <Row className="g-2">
 
-                    <Button variant="primary">
-                        Create Backup
-                    </Button>
+                    <Col xs={6}>
 
-                    <Button variant="success">
-                        Restore Backup
-                    </Button>
+                        <small className="text-muted d-block">
+                            Date
+                        </small>
+
+                        <strong>
+                            {date}
+                        </strong>
+
+                    </Col>
+
+                    <Col xs={6}>
+
+                        <small className="text-muted d-block">
+                            Time
+                        </small>
+
+                        <strong>
+                            {time}
+                        </strong>
+
+                    </Col>
+
+                    <Col xs={12}>
+
+                        <small className="text-muted d-block">
+                            Vehicle
+                        </small>
+
+                        <strong>
+                            {vehicle}
+                        </strong>
+
+                    </Col>
+
+                </Row>
+
+                <div className="d-flex gap-2 mt-4">
+
+                    {id && (
+
+                        <Button
+                            as={Link}
+                            to={`/bookings/${id}`}
+                            variant="outline-primary"
+                            size="sm"
+                        >
+                            View Details
+                        </Button>
+
+                    )}
+
+                    {onCancel &&
+                        status.toLowerCase() ===
+                        "pending" && (
+
+                        <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() =>
+                                onCancel(id)
+                            }
+                        >
+                            Cancel
+                        </Button>
+
+                    )}
 
                 </div>
 
             </Card.Body>
 
         </Card>
-
     );
+};
 
-}
-
-export default BackupCard;
+export default BookingCard;

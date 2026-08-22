@@ -1,10 +1,48 @@
-import { Card, Badge, Button } from "react-bootstrap";
+import {
+    Card,
+    Button
+} from "react-bootstrap";
 
-function ReviewCard({ review }) {
+const ReviewCard = ({
+    review,
+    onDelete
+}) => {
+
+    const id =
+        review?.id ??
+        review?.review_id;
+
+    const name =
+        review?.customer_name ??
+        review?.user_name ??
+        review?.username ??
+        "Customer";
+
+    const rating = Math.min(
+        5,
+        Math.max(
+            0,
+            Number(
+                review?.rating ??
+                review?.stars ??
+                0
+            )
+        )
+    );
+
+    const comment =
+        review?.comment ??
+        review?.review ??
+        review?.message ??
+        "";
+
+    const date =
+        review?.created_at ??
+        review?.date ??
+        "";
 
     return (
-
-        <Card className="shadow-sm border-0 mb-3">
+        <Card className="border-0 shadow-sm h-100">
 
             <Card.Body>
 
@@ -12,39 +50,51 @@ function ReviewCard({ review }) {
 
                     <div>
 
-                        <h5>{review.customer}</h5>
+                        <h6 className="fw-bold mb-1">
+                            {name}
+                        </h6>
 
-                        <p className="mb-2">{review.comment}</p>
-
-                        <small>{review.date}</small>
-
-                    </div>
-
-                    <div className="text-end">
-
-                        <Badge bg="warning" text="dark">
-                            ⭐ {review.rating}/5
-                        </Badge>
-
-                        <br/><br/>
-
-                        <Button
-                            size="sm"
-                            variant="outline-primary"
+                        <div
+                            aria-label={`${rating} out of 5 stars`}
+                            className="text-warning"
                         >
-                            Reply
-                        </Button>
+                            {"★".repeat(rating)}
+                            <span className="text-muted">
+                                {"★".repeat(5 - rating)}
+                            </span>
+                        </div>
 
                     </div>
+
+                    {date && (
+                        <small className="text-muted">
+                            {date}
+                        </small>
+                    )}
 
                 </div>
+
+                <p className="mt-3 mb-0">
+                    {comment || "No comment provided."}
+                </p>
+
+                {onDelete && id && (
+
+                    <Button
+                        variant="outline-danger"
+                        size="sm"
+                        className="mt-3"
+                        onClick={() => onDelete(id)}
+                    >
+                        Delete Review
+                    </Button>
+
+                )}
 
             </Card.Body>
 
         </Card>
-
     );
-
-}
+};
 
 export default ReviewCard;
